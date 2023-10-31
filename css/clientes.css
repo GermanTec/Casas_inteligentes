@@ -1,0 +1,29 @@
+.body-C{
+    background: #fff;
+    background: linear-gradient(to right, #cdcaca,#fff);
+}
+.bg{
+    background-image: url(/img/DreamShaper_v7_persona_mirando_al_horizonte_3.jpg);
+    background-position: center center;
+   
+}
+section .container{
+    overflow: hidden;
+}
+
+.error{
+    background-color: red;
+    color: black;
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px ;
+    margin: 20px auto;
+}
+.bien{
+    background-color: green;
+    color: black;
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px ;
+    margin: 20px auto;
+}

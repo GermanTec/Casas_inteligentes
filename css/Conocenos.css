@@ -1,0 +1,81 @@
+html {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  body {
+    color: black;
+    margin: 0;
+    padding: 0;
+    perspective: 1px;
+    transform-style: preserve-3d;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: "Luna", sans-serif;
+  }
+
+  /* Estilos para el encabezado con efecto paralaje */
+  .html{
+    height: 100%;
+    overflow: hidden;
+}
+body{
+    color: #fbeaea;
+    margin: 0;
+    padding: 0;
+    perspective: 1px;
+    transform-style: preserve-3d;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: "Luna";
+    
+}
+.card-text:last-child {
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+.Scroll{
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: 30vw 0 5vw;
+    position: relative;
+    transform-style: inherit;
+    width: 100vw;
+    
+}
+.Scroll, .Scroll:before{
+    background: 50% 50% / cover;
+}
+.Scroll::before{
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    background-image: url(https://media.tenor.com/wIa91mot0tAAAAAd/pixel-city-chill.gif);
+    background-size: cover;
+    transform-origin: center center 0;
+    transform: translateZ(-1px) scale(2);
+    z-index: -1;
+    min-height: 100vh;
+}
+
+.Scroll * { 
+    font-weight: normal;
+    letter-spacing: 0.2rem;
+    text-align: center;
+    margin: 0;
+    padding: 0rem 0;
+}
+  
+  .container {
+    z-index: 2;
+    line-height: 30px;
+    color: black;
+}
+

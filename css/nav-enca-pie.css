@@ -1,0 +1,211 @@
+:root{
+  --colorgris:#c9c3c3;
+  --colornegro:#000000;
+  --colorblanco:#fff;
+  --colorazul:#0000FF;
+  --colornaranja:#ffa420;
+}
+  /*------------------------------ Encabezado -----------------------------------*/
+  .bi.bi-globe{
+    margin-left: 10px;
+  }
+
+  .header {
+      background-color: var(--colorgris);
+      padding: 0px;
+      text-align: right;
+      font-family: 'Raleway', sans-serif;
+    }
+    
+    .header .detalles {
+      list-style-type: none;
+      margin: auto;
+      padding: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin-right: 30px; /* Agrega un margen derecho */
+    }
+    
+    .header .detalles li{
+      display: block;
+      color: #000000;
+      text-decoration: none;
+    }
+
+    .header .detalles a {
+      color: var(--colornegro);
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 18px;
+    }
+    
+    .header .detalles a:hover {
+      --colorazul:#0000FF; /* Texto azul al pasar el cursor */
+      text-decoration: underline; /* Línea debajo del texto al pasar el cursor */
+      text-decoration-color:var(--colornaranja); /* Color de la línea al pasar el cursor */
+    }
+/*
+    .perfil{
+      display: flex; 
+      width: 250px; 
+      list-style-type:none;
+      justify-content: space-around;
+    }
+    .perfil li a{
+      display: block;
+      padding: 15px 20px;
+      color: #000000;
+      text-decoration: none;
+    }
+    .perfil li:hover{
+      background-color: orange;
+    }*/
+
+    .perfil{
+      position: fixed;
+      display: none;
+      width: 170px;
+      background-color: rgba(0, 0, 0, 0.09);
+      z-index: 2;
+      left: 1200px;
+    }
+    .perfil ul{
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items:start;
+      text-indent: -26px;
+    }
+
+    .detalles li:hover .perfil{
+      display: block;
+    }
+    
+    /*------------------------------ Fin Encabezado -----------------------------------*/
+    
+  
+  
+  main.fondo{
+   /* background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(0, 204, 153, 0.5));*/
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(0, 194, 204, 0.4));
+  
+  }
+  /*------------- NAVEGADOR-------------------*/
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  .spacer {
+    height: 5px; /* Ajusta la altura entre el espacio de mi header y nav */
+  }
+  /*Color de cuadro verde*/
+  .card.bg-info.custom-card {
+    background-color: #70cabebe !important; /* Valor de color correspondiente a bg-info */
+    border: #ffffff solid;
+    font-family: 'Raleway', sans-serif 'Tektur', cursive'Work Sans', sans-serif;
+    font-size: 40px ; 
+  }
+  /*Color de cuadro verde*/
+  
+  /*Color de blanco*/
+  .card.bg-info.custom-card {
+    font-family: 'Raleway', sans-serif 'Tektur', cursive'Work Sans', sans-serif;
+    font-size: 40px ; 
+    
+  }
+  /*Color de blanco*/
+  
+  
+  nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 5%; /* Utiliza un valor relativo para el padding */
+    box-sizing: border-box;
+    border-bottom: 1px solid #fff;
+    background-color: var(--colorblanco); /* Cambia el color de fondo a oscuro */
+    z-index: 1; /* Asegúrate de tener un valor alto para z-index */
+  }
+  
+  nav .logo {
+    padding: 20px 20px;
+    height: 80px;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--colornegro);
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav ul li a {
+    line-height: 80px;
+    color: var(--colornegro);
+    padding: 12px 15px; /* Utiliza un valor relativo para el padding */
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+  }
+  
+  nav ul li a:hover {
+    --colorazul:#0000FF; /* Texto azul al pasar el cursor */
+    text-decoration: none; /* Elimina el subrayado predeterminado */
+  }
+  
+  nav ul li a:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; /* Ajusta la distancia vertical de la línea */
+    left: 0;
+    width: 100%;
+    height: 5px; /* Ajusta el grosor de la línea */
+    background-color: var(--colornaranja); /* Cambia el color de la línea a naranja */
+  }
+  
+  /* Estilos para pantallas más pequeñas, como dispositivos móviles */
+  @media (max-width: 768px) {
+    nav .logo {
+      padding: 15px 10px; /* Ajusta el padding del logo en pantallas más pequeñas */
+    }
+  
+    nav ul li a {
+      padding: 12px 10px; /* Ajusta el padding de los elementos de navegación en pantallas más pequeñas */
+    }
+  }
+
+  .language-dropdown .dropdown-toggle::after {
+    content: none;
+  }
+  
+  .language-dropdown .goog-te-gadget {
+    color: transparent;
+    margin-left: 20px;
+  }
+
+  .language-dropdown .goog-te-gadget > span{
+    display: none;
+  }
+
+  .goog-te-gadget .goog-te-combo {
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+  }
+
+
+  /*---------------------FIN NAVEGADOR---------------------------*/
+  
+  

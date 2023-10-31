@@ -1,0 +1,33 @@
+.header {
+    background-color: var(--colorgris);
+    padding: 10px;
+    text-align: right;
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  .header .detalles {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 50px; /* Agrega un margen derecho */
+  }
+  
+  .header .detalles a {
+    color: var(--colornegro);
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 18px;
+  }
+  
+  .header .detalles a:hover {
+    --colorazul:#0000FF; /* Texto azul al pasar el cursor */
+    text-decoration: underline; /* Línea debajo del texto al pasar el cursor */
+    text-decoration-color:var(--colornaranja); /* Color de la línea al pasar el cursor */
+  }
+  
+  /*------------------------------ Fin Encabezado -----------------------------------*/
+  

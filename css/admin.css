@@ -1,0 +1,144 @@
+/* Tema personalizado responsivo para el almacén de productos inteligentes para el hogar */
+
+/* Estilos generales */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+.container{
+    margin-top: 30px;
+}
+  
+h2 {
+    margin-bottom: 20px;
+    color: #007bff;
+}
+  
+  /* Estilos para el formulario */
+#productForm {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+  
+#productForm label {
+    font-weight: bold;
+    color: #555;
+}
+  
+#productForm input[type="text"],
+#productForm input[type="number"],
+#productForm textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+  
+#productForm textarea {
+    resize: vertical;
+}
+  
+#productForm button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+  
+  /* Estilos para el botón de agregar producto */
+#addUpdateButton {
+    background-color: #007bff;
+}
+  
+#addUpdateButton:hover {
+    background-color: #0056b3;
+}
+  
+  /* Estilos para el botón de cancelar actualización */
+#cancelUpdateButton {
+    background-color: #dc3545;
+}
+  
+#cancelUpdateButton:hover {
+    background-color: #b02a37;
+}
+  
+  /* Estilos para el botón de eliminar producto */
+.btn-danger {
+    background-color: #dc3545;
+}
+  
+  .btn-danger:hover {
+    background-color: #b02a37;
+  }
+  
+  /* Estilos para los botones de actualizar y eliminar cantidad */
+  .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #565e64;
+  }
+  
+  /* Estilos para la tabla de productos disponibles */
+  .product-list {
+    margin-bottom: 50px;
+  }
+  
+  .product-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-list th, .product-list td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .product-list th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .product-list td {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .product-image {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-list button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Estilos para el buscador */
+  .search-box {
+    margin-bottom: 30px;
+  }
+  
+  .search-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #555;
+  }
+  
