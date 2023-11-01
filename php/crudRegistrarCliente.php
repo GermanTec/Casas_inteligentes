@@ -20,25 +20,25 @@
         
     
         if (empty($usuario)) {
-        header("Location: registrarCliente.php?errorReg=El usuario es requerido");
+        header("Location: ventanaRegistro.php?errorReg=El usuario es requerido");
         exit();
         }elseif(empty($contraseña)){
-            header("Location: registrarCliente.php?errorReg=La contraseña es requerida");
+            header("Location: ventanaRegistro.php?errorReg=La contraseña es requerida");
             exit();
         }elseif(empty($nombre)){
-            header("Location: registrarCliente.php?errorReg=El nombre es requerido");
+            header("Location: ventanaRegistro.php?errorReg=El nombre es requerido");
             exit();
         }elseif(empty($apellidos)){
-            header("Location: registrarCliente.php?errorReg=El apellido es requerido");
+            header("Location: ventanaRegistro.php?errorReg=El apellido es requerido");
             exit();
         }elseif(empty($cp)){
-            header("Location: registrarCliente.php?errorReg=El codigo postal es requerido");
+            header("Location: ventanaRegistro.php?errorReg=El codigo postal es requerido");
             exit();
         }elseif(empty($telefono)){
-            header("Location: registrarCliente.php?errorReg=El telefono es requerido");
+            header("Location: ventanaRegistro.php?errorReg=El telefono es requerido");
             exit();
         }elseif(empty($correo)){
-            header("Location: registrarCliente.php?errorReg=El correo es requerido");
+            header("Location: ventanaRegistro.php?errorReg=El correo es requerido");
             exit();
         }else{
         //Sentencia
@@ -56,7 +56,7 @@
         $result3=pg_query($conexion,$SQL3);
 
         if ($result3===1 && $result===1) {
-            header("Location: registrarCliente.php?errorReg=Usuario Registrado incorrectamente");
+            header("Location: ventanaRegistro.php?errorReg=Usuario Registrado incorrectamente");
         }else{
             header("Location: iniciarSesion.php?");
         }

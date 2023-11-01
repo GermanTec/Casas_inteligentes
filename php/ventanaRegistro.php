@@ -70,7 +70,7 @@
                     <img src="../img/logo.png" width="230px" alt="" style="position: relative; top: 0px; left: -100px; ">
                 </div>
                 <h2 class="fw-bold text-center py-2">Registrate</h2>
-                <form action="registrarse.php" method="post">
+                <form action="crudRegistrarCliente.php" method="post">
                     <div class="mb-4">
                         <label for="text" class="form-label">Ingrese el Nombre de Usuario</label>
                         <input type="text" class="form-control" name="usuario" placeholder="Nombre de usuario">

@@ -94,7 +94,7 @@
     <div class="col-lg-5">
       <h2>Categorias</h2>
 
-      <form id="productFormC" action="registrarCategoria.php" method="post">
+      <form id="productFormC" action="crudRegistrarCategoria.php" method="post">
         <div class="row">
           
           <div class="mb-3 col-lg-5">
@@ -202,7 +202,7 @@
       </ul>
       </div>
       <!--Inicia formulario para agregar productos-->
-      <form id="productForm3" action="registrarProducto.php" method="post">
+      <form id="productForm3" action="crudRegistrarProducto.php" method="post">
         <div class="row">
           
           <div class="mb-3 col-lg-5">
@@ -276,7 +276,7 @@
       
 
       <!--Inicia formulario para modificar productos-->
-      <form id="productForm2" action="modificarProducto.php" method="post" style="display: none;">
+      <form id="productForm2" action="crudModificarProducto.php" method="post" style="display: none;">
 
       <div class="row">
 
@@ -353,7 +353,7 @@
       <!--Termina formulario para modificar productos-->
       
       <!--Inicia formulario para Eliminar productos-->
-      <form id="productForm" action="eliminarProducto.php" method="deleted" style="display: none;">
+      <form id="productForm" action="crudEliminarProducto.php" method="deleted" style="display: none;">
       <div class="row">
 
           <div class="mb-3 col-lg-5">
