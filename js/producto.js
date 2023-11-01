@@ -44,10 +44,16 @@ function quitarBordes(){
         producto[i].style.border = "none";
     }
 }
-let cle=document.getElementById('2');
+
 function extender(){
-    cle.style.display='block';
-    cle.style.height='100%';
+    let cle=document.getElementById('2');
+    if (window.getComputedStyle(cle).display==='none') {
+        cle.style.display='block';
+        cle.style.height='100%';
+    }else{
+        cle.style.display='none';
+        cle.style.height='0%';
+    }
 }
 function cortar() {
     cle.style.display='none';

@@ -155,34 +155,40 @@
             </div>
             <h2 class="nav_h2">grantizados de alta calidad</h2>
         </div>
-      </nav>
+      </nav>    
+
     <div id="product"></div>
     <div class="container_productos" id="señal">
     <section class="section1" >
-        <h3>Categorias</h3>
-        <ul>
-        <div id="categoryProductos">
-        <li><a href="#product" id="categoryProductosAll" onclick="mostrarTodo()" >Todo</a></li>
-        <li><a href="#product" id="categoryProductosCam" onclick="mostrarCamaras()" >Camaras</a></li>
-        <li><a href="#product" id="categoryProductosCer" onclick="mostrarCerraduras()" >Cerraduras</a></li>
-        <li><a href="#product" id="categoryProductosFoc" onclick="mostrarFocos()" >Focos</a></li>
-        <li><a href="#product" id="categoryProductosFoc" onclick="mostrarLimpieza()" >Limpieza</a></li>
-        <li><a href="#product" id="categoryProductosFoc" onclick="mostrarEntretenimiento()" >Entretenimiento</a></li>
+        <h3>Buscar por:</h3>
+        
+      <ul>
+      <div id="categoryProductos">
+        <li><a href="#product">Todo</a></li>
+        <li><a href="#product" onclick="extender()">Categorias</a></li>
         <div class="lista2" id="2">
-        <ul>
-          <li><a href="#product" id="categoryProductosFoc" onclick="mostrarAltavoces()" >Altavoces</a></li>
-          <li><a href="#product" id="categoryProductosFoc" onclick="mostrarTelevisiones()" >Televisiones</a></li>
-          <li><a href="#product" id="categoryProductosFoc" onclick="mostrarGafas()" >Gafas</a></li>
+          <ul>
+      <?php
+        include('conexion.php');
+        $sentencia="SELECT nombre as total FROM public.categoria";
+        $resultado=pg_query($conexion,$sentencia);
+
+        while ($a = pg_fetch_assoc($resultado)) {
+      ?>
+          <li><a href="#product"><?php echo $a['total']?></a></li>
+      <?php
+        }      
+      ?>
         </ul>
         </div>
-        <li><a href="#product" id="categoryProductosFoc" onclick="mostrarDeporte()" >Deporte</a></li>
-        <li><a href="#product" id="categoryProductosFoc" onclick="mostrarInterruptores()" >Interruptores</a></li>
-        <li><a href="#product" id="categoryProductosFoc" onclick="mostrarCosina()" >Cosina</a></li>
-        <li><a href="#product" id="categoryProductosFoc" onclick="mostrarSensores()" >Sensores</a></li>
-      
+        <li><a href="#product">Marcas</a></li>
+        <ul>
+          <li><a href=""></a></li>
+        </ul>
       </div>
       </ul>
     </section>
+      
 
     <!--Productos acomodo-->
     <section class="sectionP" >

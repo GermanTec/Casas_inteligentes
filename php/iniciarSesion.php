@@ -76,7 +76,7 @@
                     <img src="../img/logo.png" width="230px" alt="" style="position: relative; top: 0px; left: -100px; ">
                 </div>
                 <h2 class="fw-bold text-center py-5">Bienvenido</h2>
-                <form action="iniciarSeccion.php" method="post">
+                <form action="crudIniciarSesion.php" method="post">
                     <div class="mb-4">
                         <label for="text" class="form-label">Ingrese el Nombre de Usuario</label>
                         <input type="text" class="form-control" name="usuario" placeholder="Nombre de usuario">
@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="my-3">
-                        <span>No tienes cuenta?<a href="../php/registrarCliente.php">Regístrate</a> </span> <br>
+                        <span>No tienes cuenta?<a href="../php/ventanaRegistro.php">Regístrate</a> </span> <br>
                         <!--<span><a href="#">Recuperar password</a> </span>-->
                     </div>
                 </form>
