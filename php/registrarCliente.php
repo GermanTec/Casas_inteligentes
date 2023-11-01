@@ -9,7 +9,7 @@
     <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/nav-enca-pie.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/clientes.css">
+    <link rel="stylesheet" href="../css/iniciarSesion.css">
 <!--FinPara pie de pagina-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"><!--Para el icono en bootstrap-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
         <ul class="detalles">
           <li><a href="#">Contactos</a></li>
           <!--<li><a href="#">Idiomas</a><i class="bi bi-globe"></i></li>-->
-          <li><a href="clientes.php">Login</a><i class="bi bi-person"></i></li>
+          <li><a href="iniciarSesion.php">Login</a><i class="bi bi-person"></i></li>
         </ul>
       </div>
     </header>
