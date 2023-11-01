@@ -13,10 +13,10 @@
         $contraseña=validar($_POST['contraseña']);
         
         if (empty($usuario)) {
-            header("Location: clientes.php?error=El usuario es requerido");
+            header("Location: iniciarSesion.php?error=El usuario es requerido");
             exit();
         }elseif(empty($contraseña)){
-            header("Location: clientes.php?error=La contraseña es requerida");
+            header("Location: iniciarSesion.php?error=La contraseña es requerida");
             exit();
         }else{
             //$contraseña=md5($contraseña);
@@ -37,7 +37,7 @@
                     header("Location: inicio.php");
                     exit();
                 }else{
-                    header("Location: clientes.php?errorIS=ERROR Usuario y contraseña incorrectas");
+                    header("Location: iniciarSesion.php?errorIS=ERROR Usuario y contraseña incorrectas");
                     exit();
                 }
                 
@@ -52,17 +52,17 @@
                     header("Location: admin.php?inicio=$nombre");
                     exit();
                 }else{
-                    header("Location: clientes.php?errorIS=ERROR Usuario y contraseña incorrectas");
+                    header("Location: iniciarSesion.php?errorIS=ERROR Usuario y contraseña incorrectas");
                     exit();
                 }
                 
             }else{
-                header("Location: clientes.php?errorIS=ERROR Usuario y contraseña incorrectas");
+                header("Location: iniciarSesion.php?errorIS=ERROR Usuario y contraseña incorrectas");
                     exit();
             }
         }
     }else{
-        header("Location: clientes.php?error=ERROR Usuario y contraseña incorrectas");
+        header("Location: iniciarSesion.php?error=ERROR Usuario y contraseña incorrectas");
                     exit();
     }
 ?>

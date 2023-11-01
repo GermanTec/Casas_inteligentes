@@ -39,7 +39,7 @@
           
             if (isset($_SESSION['usuario'])==null || isset($_SESSION['usuario'])=='') {
           ?>
-              <li><a href="clientes.php">Login</a><i class="bi bi-person gap-3"></i></li>
+              <li><a href="iniciarSesion.php">Login</a><i class="bi bi-person gap-3"></i></li>
           <?php    
             }else{
               $nombre=$_SESSION['usuario'];

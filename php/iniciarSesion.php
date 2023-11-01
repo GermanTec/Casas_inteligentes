@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/principal.css">
-    <link rel="stylesheet" href="../css/clientes.css">
+    <link rel="stylesheet" href="../css/iniciarSesion.css">
     <link rel="stylesheet" href="../css/nav-enca-pie.css">
     <link rel="stylesheet" href="../css/footer.css">
 <!--FinPara pie de pagina-->
@@ -42,7 +42,7 @@
         <ul class="detalles ">
           <li><a href="#">Contactos</a></li>
                   
-        <li><a href="clientes.php">Login</a><i class="bi bi-person gap-3"></i></li>
+        <li><a href="iniciarSesion.php">Login</a><i class="bi bi-person gap-3"></i></li>
         </ul>
       </div>
     </header>

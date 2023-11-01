@@ -3,6 +3,6 @@
     session_unset();
     session_destroy();
 
-    header("Location: clientes.php")
+    header("Location: iniciarSesion.php")
 
 ?>

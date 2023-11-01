@@ -35,7 +35,7 @@
                 if (isset($_SESSION['nombre'])==null || isset($_SESSION['nombre'])=='') {
               ?>
               
-                  <li><a href="clientes.php">Login</a><i class="bi bi-person gap-3"></i></li>
+                  <li><a href="iniciarSesion.php">Login</a><i class="bi bi-person gap-3"></i></li>
                 
               <?php    
                 }else{
@@ -79,7 +79,7 @@
     <br>
      <div class="container">
     <!-- Buscador de productos por nombre o categoría -->
-    <form action="clientes.php">
+    <form action="iniciarSesion.php">
     <div class="search-box col-lg-12">
       <h2>Buscar</h2>
       <input type="text" class="form-control" id="searchProduct" onkeyup="searchProduct(this.value)"
@@ -179,7 +179,7 @@
 
    <div class="container" id="ventanaAdmin">
     <!-- Buscador de productos por nombre o categoría -->
-    <form action="clientes.php">
+    <form action="iniciarSesion.php">
     <div class="search-box col-lg-12">
       <h2>Buscar</h2>
       <input type="text" class="form-control" id="searchProduct"

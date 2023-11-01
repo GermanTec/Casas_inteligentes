@@ -58,7 +58,7 @@
         if ($result3===1 && $result===1) {
             header("Location: registrarCliente.php?errorReg=Usuario Registrado incorrectamente");
         }else{
-            header("Location: clientes.php?");
+            header("Location: iniciarSesion.php?");
         }
 
     }
