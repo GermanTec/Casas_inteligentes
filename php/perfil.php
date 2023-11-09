@@ -126,20 +126,148 @@
             </nav>
         </aside>
         <main>
-            <h2 class="titulo-principal" id="titulo-principal">Usuario</h2>
             
-            <!-- Contenido relacionado con los botones -->
             <div id="informacion-contacto" class="contenido">
-                <!-- Contenido de Información de contacto -->
-                <h1>prueba</h1>
+                <div class="container">
+                    <div class="row">
+                        <h1>Información de contacto</h1>
+                    </div>
+                    <!-- Primera fila -->
+                    <div class="row mt-5">
+                        <!-- Primera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Email</h5>
+                                    <p class="card-text">@email</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Segunda columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Número de teléfono</h5>
+                                    <p class="card-text">@Tel</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tercera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">País</h5>
+                                    <p class="card-text">@pais</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cuarta columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Código postal</h5>
+                                    <p class="card-text">@codPost</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- segunda fila -->
+                    <div class="row mt-5">
+                        <!-- Primera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Colonia</h5>
+                                    <p class="card-text">@col</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Segunda columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Calle</h5>
+                                    <p class="card-text">@calle</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tercera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Referencas</h5>
+                                    <p class="card-text">@ref</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cuarta columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Código postal</h5>
+                                    <p class="card-text">@codPost</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div id="informacion-financiera" class="contenido" style="display: none;">
                 <!-- Contenido de Información Financiera (oculto inicialmente) -->
-                <h1>prueba 2</h1>
+                <h1>Información financiera</h1>
+                <div class="container">
+                    <div class="row">
+                        <h1>Información de contacto</h1>
+                    </div>
+                    <!-- Primera fila -->
+                    <div class="row mt-5">
+                        <!-- Primera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Número de tarjeta</h5>
+                                    <p class="card-text">@tar</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Segunda columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Titular de tarjeta</h5>
+                                    <p class="card-text">@titular</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tercera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Fecha De Vencimiento</h5>
+                                    <p class="card-text">@FechV</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div id="informacion-personal" class="contenido" style="display: none;">
                 <!-- Contenido de Información Personal (oculto inicialmente) -->
                 <h1>prueba 3</h1>
+                
             </div>
             <div id="configuraciones" class="contenido" style="display: none;">
                 <!-- Contenido de Configuraciones (oculto inicialmente) -->
