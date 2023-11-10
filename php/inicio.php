@@ -59,7 +59,7 @@
               </a><i class="bi bi-person gap-3"> </i>
               <div class="perfil">    
                     <ul id="extend">
-                    <li><a href="#">Perfil</a></li>
+                    <li><a href="perfil.php">Perfil</a></li>
                     <li><a href="cerrarSesion.php">Cerrar sesion</a></li>
                     </ul>
                     </div>
