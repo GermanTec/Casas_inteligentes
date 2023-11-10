@@ -48,7 +48,7 @@
                     </a><i class="bi bi-person gap-3"> </i>
                     <div class="perfil">    
                         <ul id="extend">
-                            <li><a href="#">Perfil</a></li>
+                            <li><a href="perfil.php">Perfil</a></li>
                             <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -79,27 +79,42 @@
     <div class="spacer"></div> <!-- Agrega un div separador -->
 
     <div class="wrapper">
-        <header class="header-mobile">
-            <h1 class="logo">Perfil</h1>
-            <button class="open-menu" id="open-menu">
-                <i class="bi bi-list"></i>
-            </button>
-        </header>
         <aside>
-            <button class="close-menu" id="close-menu">
-                <i class="bi bi-x"></i>
-            </button>
             <header>
-                <h1 class="logo">
-                     <i class="bi bi-person-circle"></i>
-                    Perfil
-                </h1>
+                    <section class="contenedor-foto-perfil">
+                    <button type="button" class="boton-foto-perfil"><i class="bi bi-card-image"></i></button>
+                        <img src="../img/logo.png" alt="">                       
+                    </section>    
             </header>
-            <nav>
+            <?php
+            include ('conexion.php');
+            $consultar="SELECT idcliente FROM public.cliente WHERE usuario='$nombre'";
+            $respuesta=pg_query($conexion,$consultar);
+            
+            
+            
+            if($fila=pg_fetch_assoc($respuesta)){
+                $idCliente=$fila['idcliente'];
+            }else{
+                
+                echo "No se encontraron resultados";
+                
+            }
+            ?>
+            <?php
+            include ('conexion.php');
+            $info_contacto="SELECT telefono, correo_electronico, pais, codigo_postal, colonia, calle, referencias, idcliente 
+            FROM public.informacion_contacto WHERE idcliente=$idCliente";
+            $respuesta2=pg_query($conexion,$info_contacto);
+            
+            while ($ic = pg_fetch_assoc($respuesta2)) {
+                
+            ?>
+            
                 <ul class="menu">
                     <li>
                         <button id="button-informacion" class="boton-menu boton-categoria active">
-                            <i class="bi bi-hand-index-thumb-fill"></i> Información de contacto
+                            <i class="bi bi-hand-index-thumb-fill"></i> Información De Contacto
                         </button>
                     </li>
                     <li>
@@ -118,20 +133,17 @@
                         </button>
                     </li>
                     <li>
-                        <a class="boton-menu boton-carrito" href="./carrito.html">
+                        <a class="boton-menu boton-carrito" href="">
                             <i class="bi bi-x-circle"></i><span>cerrar Sesión</span>
                         </a>
                     </li>
                 </ul>
-            </nav>
         </aside>
         <main>
             
             <div id="informacion-contacto" class="contenido">
                 <div class="container">
-                    <div class="row">
                         <h1>Información de contacto</h1>
-                    </div>
                     <!-- Primera fila -->
                     <div class="row mt-5">
                         <!-- Primera columna -->
@@ -139,7 +151,7 @@
                             <div class="card shadow-lg">
                                 <div class="card-body">
                                     <h5 class="card-title">Email</h5>
-                                    <p class="card-text">@email</p>
+                                    <p class="card-text"><?php echo $ic['correo_electronico']?></p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -149,7 +161,7 @@
                             <div class="card shadow-lg">
                                 <div class="card-body">
                                     <h5 class="card-title">Número de teléfono</h5>
-                                    <p class="card-text">@Tel</p>
+                                    <p class="card-text"><?php echo $ic['telefono']?></p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -159,7 +171,9 @@
                             <div class="card shadow-lg">
                                 <div class="card-body">
                                     <h5 class="card-title">País</h5>
-                                    <p class="card-text">@pais</p>
+                                    <p class="card-text"><?php if ($ic['pais']=="") {
+                                        echo "Sin pais*";
+                                    }else{ echo $ic['pais'];}?></p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -169,7 +183,9 @@
                             <div class="card shadow-lg">
                                 <div class="card-body">
                                     <h5 class="card-title">Código postal</h5>
-                                    <p class="card-text">@codPost</p>
+                                    <p class="card-text"><?php if ($ic['codigo_postal']=="") {
+                                        echo "Sin codigo postal*";
+                                    }else{echo $ic['codigo_postal'];}?></p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -182,7 +198,9 @@
                             <div class="card shadow-lg">
                                 <div class="card-body">
                                     <h5 class="card-title">Colonia</h5>
-                                    <p class="card-text">@col</p>
+                                    <p class="card-text"><?php if($ic['colonia']==""){ echo "Sin colonia";}else {
+                                        echo $ic['colonia'];}
+                                        ?></p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -192,7 +210,9 @@
                             <div class="card shadow-lg">
                                 <div class="card-body">
                                     <h5 class="card-title">Calle</h5>
-                                    <p class="card-text">@calle</p>
+                                    <p class="card-text"><?php if ($ic['calle']=="") {
+                                        echo "Sin calle*";
+                                    }else{ echo $ic['calle'];}?></p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -202,17 +222,7 @@
                             <div class="card shadow-lg">
                                 <div class="card-body">
                                     <h5 class="card-title">Referencas</h5>
-                                    <p class="card-text">@ref</p>
-                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Cuarta columna -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card shadow-lg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Código postal</h5>
-                                    <p class="card-text">@codPost</p>
+                                    <p class="card-text"><?php if($ic['referencias']==""){echo "Sin Referencias*";}else{ echo $ic['referencias'];}?></p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -220,14 +230,15 @@
                     </div>
                 </div>
             </div>
+            <?php
+            }
+            ?>
 
             <div id="informacion-financiera" class="contenido" style="display: none;">
                 <!-- Contenido de Información Financiera (oculto inicialmente) -->
-                <h1>Información financiera</h1>
                 <div class="container">
-                    <div class="row">
-                        <h1>Información de contacto</h1>
-                    </div>
+                <h1>Información financiera</h1>
+                
                     <!-- Primera fila -->
                     <div class="row mt-5">
                         <!-- Primera columna -->
@@ -266,15 +277,88 @@
             </div>
             <div id="informacion-personal" class="contenido" style="display: none;">
                 <!-- Contenido de Información Personal (oculto inicialmente) -->
-                <h1>prueba 3</h1>
+                <div class="container">
+                <h1>Información personal</h1>
+                
+                    <!-- Primera fila -->
+                    <div class="row mt-5">
+                        <!-- Primera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Número de tarjeta</h5>
+                                    <p class="card-text">@tar</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Segunda columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Titular de tarjeta</h5>
+                                    <p class="card-text">@titular</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tercera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Fecha De Vencimiento</h5>
+                                    <p class="card-text">@FechV</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
             </div>
             <div id="configuraciones" class="contenido" style="display: none;">
                 <!-- Contenido de Configuraciones (oculto inicialmente) -->
-                <h1>prueba 4</h1>
+                <div class="container">
+                <h1>Configuraciones</h1>
+               
+                    <!-- Primera fila -->
+                    <div class="row mt-5">
+                        <!-- Primera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Número de tarjeta</h5>
+                                    <p class="card-text">@tar</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Segunda columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Titular de tarjeta</h5>
+                                    <p class="card-text">@titular</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tercera columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Fecha De Vencimiento</h5>
+                                    <p class="card-text">@FechV</p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
+    
     
     <!-- Pie de página -->
     <footer class="footer-distributed">
