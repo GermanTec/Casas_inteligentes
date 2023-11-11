@@ -232,8 +232,13 @@
             </div>
             <?php
             }
+            $info_financiera="SELECT telefono, correo_electronico, pais, codigo_postal, colonia, calle, referencias, idcliente 
+            FROM public.informacion_contacto WHERE idcliente=$idCliente";
+            $res_financiera=pg_query($conexion,$info_financiera);
+            
+            while ($if = pg_fetch_assoc($res_financiera)) {  
             ?>
-
+            
             <div id="informacion-financiera" class="contenido" style="display: none;">
                 <!-- Contenido de Información Financiera (oculto inicialmente) -->
                 <div class="container">
@@ -242,39 +247,50 @@
                     <!-- Primera fila -->
                     <div class="row mt-5">
                         <!-- Primera columna -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card shadow-lg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Número de tarjeta</h5>
-                                    <p class="card-text">@tar</p>
-                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                        <div class="col-lg-6 col-sm-6">
+                        <div class="tarjeta">
+                            <div class="delante">
+                                <div class="logo-tarjeta">
+                                    <img src="../img/mastercard.png" alt="" >
                                 </div>
+                                <img src="../img/chip-tarjeta.png" alt="" class="chip">
+                                        <p class="nombre">Numero de tarjeta</p>
+                                        <p class="label">#### #### #### ####</p>
+                                    <div class="flex">
+                                        <div class="nombre">
+                                            <p class="nombre">Nombre del dueño</p>
+                                            <p class="label">Fulano Detal</p>
+                                        </div>
+                                        <div class="expiracion">
+                                            <p class="nombre">Expiracion</p>
+                                            <p><span class="label">MM</span> / <span class="label">AA</span></p>
+                                        </div>
+                                    </div>
+                                    
                             </div>
                         </div>
-                        <!-- Segunda columna -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card shadow-lg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Titular de tarjeta</h5>
-                                    <p class="card-text">@titular</p>
-                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="new-tarjeta">
+                            <button class="agregar">
+                                <i class="bi bi-plus-circle-dotted agrandar"></i>
+                            </button>
                         </div>
-                        <!-- Tercera columna -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card shadow-lg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Fecha De Vencimiento</h5>
-                                    <p class="card-text">@FechV</p>
-                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                    
                     </div>
                 </div>
 
             </div>
+
+            <?php
+            }
+            $info_personal="SELECT idcliente, nombre, apellidos, fecha_naciemiento, genero, fotografia, curp
+            FROM public.informacion_personal WHERE idcliente=$idCliente";
+            $res_personal=pg_query($conexion,$info_personal);
+            
+            while ($ip = pg_fetch_assoc($res_personal)) {  
+            ?>
             <div id="informacion-personal" class="contenido" style="display: none;">
                 <!-- Contenido de Información Personal (oculto inicialmente) -->
                 <div class="container">
@@ -286,8 +302,13 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="card shadow-lg">
                                 <div class="card-body">
-                                    <h5 class="card-title">Número de tarjeta</h5>
-                                    <p class="card-text">@tar</p>
+                                    <h5 class="card-title">Nombre</h5>
+                                    <p class="card-text"><?php if ($ip['nombre']=="") {
+                                                                    echo "Sin nombre*";
+                                                                }else{
+                                                                    echo $ip['nombre'];}
+                                                          ?>
+                                    </p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -296,8 +317,13 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="card shadow-lg">
                                 <div class="card-body">
-                                    <h5 class="card-title">Titular de tarjeta</h5>
-                                    <p class="card-text">@titular</p>
+                                    <h5 class="card-title">Apellidos</h5>
+                                    <p class="card-text"><?php if ($ip['apellidos']=="") {
+                                                                    echo "Sin apellidos*";
+                                                                }else{
+                                                                    echo $ip['apellidos'];}
+                                                          ?>
+                                    </p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
@@ -306,16 +332,56 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="card shadow-lg">
                                 <div class="card-body">
-                                    <h5 class="card-title">Fecha De Vencimiento</h5>
-                                    <p class="card-text">@FechV</p>
+                                    <h5 class="card-title">Fecha de nacimiento</h5>
+                                    <p class="card-text"><?php if ($ip['fecha_naciemiento']=="") {
+                                                                    echo "Sin fecha de naciemiento*";
+                                                                }else{
+                                                                    echo $ip['fecha_naciemiento'];}
+                                                          ?>
+                                    </p>
                                     <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                             </div>
+                        </div>
+                         <!-- Cuarta columna -->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Genero</h5>
+                                    <p class="card-text"><?php if ($ip['genero']=="") {
+                                                                    echo "Sin genero*";
+                                                                }else{
+                                                                    echo $ip['genero'];}
+                                                          ?>
+                                    </p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Curp</h5>
+                                    <p class="card-text"><?php if ($ip['curp']=="") {
+                                                                    echo "Sin curp*";
+                                                                }else{
+                                                                    echo $ip['curp'];}
+                                                          ?>
+                                    </p>
+                                    <a href="#" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
                 
             </div>
+            <?php
+            }
+            ?>
             <div id="configuraciones" class="contenido" style="display: none;">
                 <!-- Contenido de Configuraciones (oculto inicialmente) -->
                 <div class="container">
