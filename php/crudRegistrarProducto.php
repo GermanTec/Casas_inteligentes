@@ -57,7 +57,6 @@
         }else{
             header("Location: admin.php?bienRP=Producto Registrado correctamente");
         }
-        echo 'Hola';
     }
 }
 
