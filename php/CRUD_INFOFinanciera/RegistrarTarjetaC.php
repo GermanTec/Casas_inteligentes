@@ -23,7 +23,7 @@
             header("Location: ../perfil.php?errorReg=Registro echo incorrectamente");
         }else{
         //Sentencia
-        $SQL="INSERT INTO public.informacion_financiera(idcliente, tipo)VALUES ((SELECT idcliente FROM public.cliente WHERE usuario='$nombre'), 'Tarjeta Debito');";
+        $SQL="INSERT INTO public.informacion_financiera(idcliente, tipo)VALUES ((SELECT idcliente FROM public.cliente WHERE usuario='$nombre'), 'Tarjeta Credito');";
         $result=pg_query($conexion,$SQL);
 
         $tarjeta="SELECT MAX(idcuenta) FROM public.informacion_financiera";

@@ -192,7 +192,7 @@
     cursor: pointer;
 }
 .info{
-    padding: 0px;
+    
 }
 .info img{
     display: block;
@@ -200,16 +200,19 @@
     width: 96%;
 }
 .info h2{
+    padding: 3px;
     color: #000000;
-    margin-bottom: 10px ;
+    font-size: 23zpx;
 }
 .info p{
-    font-size: 14px;
+  padding: 5px;
+    font-size: 10px;
     color: #000000;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .info .precio{
-    font-size: 30px;
+  padding-left: 100px;
+  font-size: 30px;
     font-weight: bold;
     color: red;
     margin-bottom: 10px;
@@ -528,8 +531,7 @@ button:focus{
 }
 
 
-/*------------------Carrito de compras---------------------*/
-
+/*------------------Carrito de compras---------------------
 .icon-cart{
   width: 40px;
   height: 40px;

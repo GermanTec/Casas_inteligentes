@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Almacén de Productos Tecnológicos</title>
+  <title>Administracion de la Pagina</title>
   <link rel="stylesheet" href="../css/styles_Admin.css">
   <link rel="stylesheet" href="../css/nav-enca-pie.css">
   <link rel="stylesheet" href="../css/footer.css">
@@ -66,24 +66,33 @@
      <!-- Navegador-->
      <nav>
      <img src="../img/logo.png" width="200px" alt="" style="position: absolute; top:-6px; right:85%;">
+      <ul>
       <div class="logo"></div>
       <div class="logo"></div>
       <div class="logo"></div>
       <div class="logo"></div>
       <div class="logo">Administracion</div>
-       <ul>
-         <li><a ></a></li>
-       </ul>
+      </ul>
      </nav>
      <!-- Fin Navegador--> 
-    <br>
+     <h1 style="text-align: center;">Bienvenido a la pagina de Administracion</h1>
+     <h3 style="padding: 30px; font-size:large; color:#979797">En la página de administración de productos del sitio web usa una interfaz 
+      diseñada para que el administrador o los usuarios autorizados gestionen eficientemente 
+      la información relacionada con los productos que ofrece la plataforma tanto como las categorias
+      que se tienen.</h3>
+    
+
      <div class="container">
     <!-- Buscador de productos por nombre o categoría -->
-    <form action="iniciarSesion.php">
+    <?php $nombreCat=""?>
+    <form action="search.php" method="post">
     <div class="search-box col-lg-12">
       <h2>Buscar</h2>
-      <input type="text" class="form-control" id="searchProduct" onkeyup="searchProduct(this.value)"
-        placeholder="Categoría">
+      <input type="text" class="form-control" id="searchProduct" name="searchProduct" onkeyup=""
+        placeholder="Nombre de la Categoría">
+        <?php if(isset($_GET['nombre'])){
+          $nombreCat=$_GET['nombre'];
+        }?>
     </div>
     </form>
   </div>
@@ -93,8 +102,15 @@
 
     <div class="col-lg-5">
       <h2>Categorias</h2>
+      <div class="seleccion">
+      <ul>
+        <li><a href="javascript:void(0)" onclick="mostrarCategoriaA()">Agregar</a></li>
+        <li><a href="javascript:void(0)" onclick="mostrarCategoriaM()">Modificar</a></li>
+        <li><a href="javascript:void(0)" onclick="mostrarCategoriaE()">Eliminar</a></li>
+      </ul>
+      </div><br>
 
-      <form id="productFormC" action="crudRegistrarCategoria.php" method="post">
+      <form id="productFormCA" action="crudRegistrarCategoria.php" method="post">
         <div class="row">
           
           <div class="mb-3 col-lg-5">
@@ -142,22 +158,121 @@
           </div>
         </div>
       </form>
+      
+
+      <form id="productFormCM" action="crudModificarCategoria.php" method="post" style="display: none;">
+        <div class="row">
+
+          <div class="mb-3 col-lg-5">
+              <label for="idCategoria" class="form-label">ID Categoria</label>
+              <input type="text" class="form-control" name="idCategoria" id="idCategoria">
+          </div>
+          
+          <div class="mb-3 col-lg-5">
+            <label for="productName" class="form-label">Nombre de la Categoria</label>
+            <input type="text" class="form-control" name="nombre" id="productName">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="mb-3 col-lg-5">
+            <label for="productDescription" class="form-label">Descripción</label>
+            <textarea class="form-control" id="productDescription" name="descripcion"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="mb-3">
+          <hr>
+                    <?php
+                    if (isset($_GET['errorMCat'])) {
+                        ?>
+                        <p class="error">
+                            <?php
+                            echo $_GET['errorMCat']
+                            ?>
+                        </p>
+                    <?php    
+                    } 
+                    ?>
+                    <?php
+                    if (isset($_GET['bienMCat'])) {
+                        ?>
+                        <p class="bien">
+                            <?php
+                            echo $_GET['bienMCat']
+                            ?>
+                        </p>
+                    <?php    
+                    } 
+                    ?>
+                    <hr>
+            <button type="submit" class="btn btn-primary" id="addUpdateButton">Modificar Categoria</button>
+              
+
+          </div>
+        </div>
+      </form>
+
+      <form id="productFormCE" action="crudEliminarCategoria.php" method="post" style="display: none;">
+        <div class="row">
+          
+          <div class="mb-3 col-lg-5">
+            <label for="idCategoria" class="form-label">ID Categoria</label>
+            <input type="text" class="form-control" name="idCategoria" id="idCategoria">
+          </div>
+        </div>
+        <br><br><br><br>
+
+        <div class="row">
+          <div class="mb-3">
+          <hr>
+                    <?php
+                    if (isset($_GET['errorCat'])) {
+                        ?>
+                        <p class="error">
+                            <?php
+                            echo $_GET['errorCat']
+                            ?>
+                        </p>
+                    <?php    
+                    } 
+                    ?>
+                    <?php
+                    if (isset($_GET['bienCat'])) {
+                        ?>
+                        <p class="bien">
+                            <?php
+                            echo $_GET['bienCat']
+                            ?>
+                        </p>
+                    <?php    
+                    } 
+                    ?>
+                    <hr>
+            <button type="submit" class="btn btn-primary" id="addUpdateButton">Eliminar Categoria</button>
+              
+
+          </div>
+        </div>
+      </form>
     </div>
 
     <div class="col-lg-7">
       <!-- Lista de categorias disponibles -->
       <div class="product-list">
         <h2>Categoria Disponibles</h2>
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="table2">
           <thead>
             <tr>
               <th>ID</th>
               <th>Nombre</th>
               <th>Descripción</th>
+              <th>Acciones</th>
             </tr>
             <?php
             include('conexion.php');
-            $query="SELECT * FROM public.categoria";
+            $query="SELECT * FROM public.categoria WHERE nombre LIKE '%$nombreCat%'";
             $result=pg_query($conexion,$query);
             while ($m =pg_fetch_array($result)) {            
             ?>
@@ -165,7 +280,10 @@
               <th><?php echo $m['idcategoria'] ?></th>
               <th><?php echo $m['nombre'] ?></th>
               <th><?php echo $m['descripcion'] ?></th>
-              
+              <th>
+                    <button type="submit" class="btn btn-primary" id="addUpdateButton" onclick="click4(event)">Modificar</button>
+                    <button type="submit" class="btn btn-primary" id="eliminar" onclick="click5(event)">Eliminar</button>  
+              </th>
             </tr>
             <?php
             }
@@ -179,11 +297,16 @@
 
    <div class="container" id="ventanaAdmin">
     <!-- Buscador de productos por nombre o categoría -->
-    <form action="iniciarSesion.php">
+    <?php $nombreProd=""; $nombreCatP="";?>
+    <form action="search.php" method="post">
     <div class="search-box col-lg-12">
       <h2>Buscar</h2>
-      <input type="text" class="form-control" id="searchProduct"
-        placeholder="Nombre o Categoría">
+      <input type="text" class="form-control" id="searchProduct2" name="searchProduct2" onkeyup=""
+        placeholder="Nombre de la Categoría O Nombre del Producto">
+        <?php if(isset($_GET['nombre2'])){
+          $nombreCatP=$_GET['nombre2'];
+          $nombreProd=$_GET['nombre2'];
+        }?>
     </div>
     </form>
   </div>
@@ -196,9 +319,9 @@
       
       <div class="seleccion">
       <ul>
-        <li><a href="#ventanaAdmin" onclick="mostrarA()">Agregar</a></li>
-        <li><a href="#ventanaAdmin" onclick="mostrarM()">Modificar</a></li>
-        <li><a href="#ventanaAdmin" onclick="mostrarE()">Eliminar</a></li>
+        <li><a href="javascript:void(0)" onclick="mostrarA()">Agregar</a></li>
+        <li><a href="javascript:void(0)" onclick="mostrarM()">Modificar</a></li>
+        <li><a href="javascript:void(0)" onclick="mostrarE()">Eliminar</a></li>
       </ul>
       </div>
       <!--Inicia formulario para agregar productos-->
@@ -224,9 +347,21 @@
         </div>
 
         <div class="row">
-          <div class="mb-3 col-lg-2">
+          <div class="mb-4 col-lg-3">
             <label for="productCategory" class="form-label">Categoría</label>
-            <input type="number" class="form-control" name="categoria" id="productCategory">
+            <select name="categoria" id="productCategory" style="font-size: 30px";>
+            <?php
+            include('conexion.php');
+            $query="SELECT idcategoria,nombre FROM public.categoria";
+            $result=pg_query($conexion,$query);
+            while ($m =pg_fetch_array($result)) {
+            ?>
+            <option value="<?php echo $m['idcategoria'] ?>"><?php echo $m['nombre'] ?></option>
+            <?php
+            }
+            ?>
+            </select>
+            
           </div>
           <div class="mb-3 col-lg-4">
             <label for="productPrice" class="form-label">Precio</label>
@@ -305,9 +440,20 @@
         </div>
 
         <div class="row">
-          <div class="mb-3 col-lg-2">
+          <div class="mb-3 col-lg-3">
             <label for="productCategory" class="form-label">Categoría</label>
-            <input type="text" class="form-control" name="categoria" id="productCategory">
+            <select name="categoria" id="productCategory" style="font-size: 30px";>
+            <?php
+            include('conexion.php');
+            $query="SELECT idcategoria,nombre FROM public.categoria";
+            $result=pg_query($conexion,$query);
+            while ($m =pg_fetch_array($result)) {
+            ?>
+            <option value="<?php echo $m['idcategoria'] ?>"><?php echo $m['nombre'] ?></option>
+            <?php
+            }
+            ?>
+            </select>
           </div>
           <div class="mb-3 col-lg-4">
             <label for="productPrice" class="form-label">Precio</label>
@@ -361,7 +507,7 @@
               <input type="text" class="form-control" name="id" id="productId">
             </div>
           
-        </div>
+        </div><br><br><br><br><br><br><br><br><br><br>
 
         
         <hr>
@@ -417,7 +563,8 @@
             include('conexion.php');
             $query="SELECT productos.idproducto, productos.nombre as producto, imagen, productos.descripcion, precio, categoria.nombre,categoria.idcategoria,cantidadexistente FROM public.productos 
             inner join public.almacen on public.almacen.idproducto=public.productos.idproducto
-            inner join public.categoria on public.productos.idcategoria=public.categoria.idcategoria";
+            inner join public.categoria on public.productos.idcategoria=public.categoria.idcategoria 
+            WHERE productos.nombre LIKE '%$nombreProd%' OR categoria.nombre LIKE '%$nombreCatP%'";
             $result=pg_query($conexion,$query);
             
               while ($m =pg_fetch_array($result)) {            
@@ -430,7 +577,11 @@
                   <td><?php echo $m['precio'] ?></td>
                   <td><?php echo $m['nombre'] ?></td>
                   <td><?php echo $m['cantidadexistente'] ?></td>
-                  <td><button type="submit" class="btn btn-primary" id="addUpdateButton">Modificar</button></td>
+                  <td style="display: none;"><?php echo $m['imagen'] ?></td>
+                  <td>
+                    <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;" id="addUpdateButton" onclick="click2(event)">Modificar</button>
+                    <button type="submit" class="btn btn-primary" id="eliminar" onclick="click3(event)">Eliminar</button>  
+                  </td>
                 </tr>
                 <?php
                 }

@@ -1,0 +1,56 @@
+/* Estilos para teléfonos */
+@media (max-width: 480px) {
+    /* ... */
+  }
+  
+  /* Estilos para tabletas */
+  @media (min-width: 481px) and (max-width: 1024px) {
+  
+  }
+  
+  /* Estilos para pantallas de escritorio */
+  @media (min-width: 1025px) {
+  }
+  
+  
+  
+  :root{
+    --colorgris:#c9c3c3;
+    --colornegro:#000000;
+    --colorblanco:#fff;
+    --colorazul:#0000FF;
+    --colornaranja:#ffa420;
+  }
+
+  body {
+    line-height: 1.317101995;
+    scroll-behavior: smooth;
+    font-family: sans-serif;
+    background-color: #ffffff;
+  }
+
+  
+  .container table th{
+    background-color: rgb(101, 227, 246);
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+  }
+  .container table td{
+    font-family: 'Montserrat', sans-serif;
+    font-size: x-large;
+  }
+
+  @keyframes width{
+    0%{
+        width: 0;
+    }
+  
+    50%{
+        width: 100%;
+    }
+  
+    100%{
+        width: 70%;
+    }
+  }
+  

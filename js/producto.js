@@ -1,11 +1,20 @@
 //-----------------Funciones para el acomodo de los productos------------------
 let mostrador = document.getElementById("mostrador");
 let seleccion = document.getElementById("seleccion");
+
 let imgSeleccionada = document.getElementById("img");
 let modeloSeleccionado = document.getElementById("modelo");
 let descripSeleccionada = document.getElementById("descripcion");
 let precioSeleccionado = document.getElementById("precio");
 let cantidadesSeleccionado=document.getElementById("existente");
+
+let producto_car=document.getElementById("producto");
+let desc=document.getElementById("desc");
+let imagen=document.getElementById("imagen");
+let precio_producto=document.getElementById("precio_producto");
+let cant=document.getElementById("cantidad");
+let id_producto=document.getElementById("id_producto");
+
 
 function cargar(producto){
     quitarBordes();
@@ -14,15 +23,25 @@ function cargar(producto){
     seleccion.style.opacity = "1";
     producto.style.border = "2px solid #0071b2";
 
-   var almacen=producto.getElementsByTagName("h2")[0].innerHTML
+   var almacen=producto.getElementsByTagName("h2")[0].innerHTML;
 
     imgSeleccionada.src = producto.getElementsByTagName("img")[0].src;
+    imagen.value = producto.getElementsByTagName("img")[0].src;
 
     modeloSeleccionado.innerHTML =  producto.getElementsByTagName("h3")[0].innerHTML;
+    producto_car.value = producto.getElementsByTagName("h3")[0].innerHTML;
 
-    descripSeleccionada.innerHTML = producto.getElementsByClassName("id")[0].innerHTML;
+    descripSeleccionada.innerHTML = producto.getElementsByClassName("descripcion_select")[0].innerHTML;
+    desc.value = producto.getElementsByClassName("descripcion_select")[0].innerHTML;
 
-    precioSeleccionado.innerHTML =  producto.getElementsByTagName("span")[0].innerHTML;
+    cant.value = 1;
+
+    let cadena = producto.getElementsByTagName("span")[0].innerHTML;
+    let cadenaSinPrimerCaracter = cadena.substring(1);
+    precioSeleccionado.innerHTML =  cadena;
+    precio_producto.value = cadenaSinPrimerCaracter;
+
+    id_producto.value = producto.getElementsByClassName("id")[0].innerHTML;
 
     for (var i = 1; i <= almacen; i++) {
         var option = document.createElement("option"); // Crea un elemento option
@@ -32,6 +51,15 @@ function cargar(producto){
         cantidadesSeleccionado.add(option); // Agrega la opción al select
     }
 }
+function handleSelectChange() {
+    // Obtener el valor seleccionado
+    var valorSeleccionado = cantidadesSeleccionado.value;
+    cant.value = valorSeleccionado;
+}
+
+// Agregar el event listener al elemento select
+cantidadesSeleccionado.addEventListener("change", handleSelectChange);
+
 function cerrar(){
     mostrador.style.width = "100%";
     seleccion.style.width = "0%";
@@ -206,139 +234,35 @@ function mostrarCosina(){
 pintar(8);
 }
 
+function submitForm(linkElement) {
+    // Crear un nuevo elemento de input
+    var totalText = linkElement.textContent || linkElement.innerText;
 
-//---------------------Funciones para el carrito----------------------------
-const btnCart = document.querySelector('.container-cart-icon');
-const containerCartProducts = document.querySelector(
-	'.container-cart-products'
-);
+    // Crear un nuevo elemento de input
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'searchProduct3';
+    input.value = totalText;
 
-btnCart.addEventListener('click', () => {
-	containerCartProducts.classList.toggle('hidden-cart');
-});
-const cartInfo = document.querySelector('.cart-product');
-const rowProduct = document.querySelector('.row-product');
+    // Agregar el input al formulario
+    document.getElementById('myForm').appendChild(input);
 
-// Lista de todos los contenedores de productos
-const productsList = document.querySelector('.seleccion');
+    // Enviar el formulario
+    document.getElementById('myForm').submit();
+}
 
-// Variable de arreglos de Productos
-let allProducts = [];
+function submitFormTodo() {
+    // Crear un nuevo elemento de input
 
-const valorTotal = document.querySelector('.total-pagar');
+    // Crear un nuevo elemento de input
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'searchProduct3';
+    input.value = "";
 
-const countProducts = document.querySelector('#contador-productos');
+    // Agregar el input al formulario
+    document.getElementById('myForm').appendChild(input);
 
-const cartEmpty = document.querySelector('.cart-empty');
-const cartTotal = document.querySelector('.cart-total');
-
-productsList.addEventListener('click', e => {
-	if (e.target.classList.contains('btn-add-cart')) {
-        const product = e.target.parentElement;
-
-		const infoProduct = {
-			quantity: 1,
-			title: product.querySelector('h2').textContent,
-			price: product.querySelector('span').textContent,
-		};
-
-        // Obtener la cantidad seleccionada del menú desplegable
-        const cantidadSelect = document.getElementById("existente");
-        infoProduct.quantity = parseInt(cantidadSelect.value);
-
-        // Verificar si el producto ya existe en el carrito y actualizar la cantidad
-        const existsIndex = allProducts.findIndex(product => product.title === infoProduct.title);
-        if (existsIndex !== -1) {
-        allProducts[existsIndex].quantity += infoProduct.quantity;
-        } else {
-        allProducts.push(infoProduct);
-        }
-        /*
-        const exits = allProducts.some(
-			product => product.title === infoProduct.title
-		);
-        if (exits) {
-			const products = allProducts.map(product => {
-				if (product.title === infoProduct.title) {
-					product.quantity++;
-					return product;
-				} else {
-					return product;
-				}
-			});
-			allProducts = [...products];
-		} else {
-			allProducts = [...allProducts, infoProduct];
-		}*/
-
-        showHTML(); 
-    }
-});
-rowProduct.addEventListener('click', e => {
-	if (e.target.classList.contains('icon-close')) {
-		const product = e.target.parentElement;
-		const title = product.querySelector('p').textContent;
-
-		allProducts = allProducts.filter(
-			product => product.title !== title
-		);
-
-		console.log(allProducts);
-
-		showHTML();
-	}
-});
-
-const showHTML = () => {
-    if (!allProducts.length) {
-		cartEmpty.classList.remove('hidden');
-		rowProduct.classList.add('hidden');
-		cartTotal.classList.add('hidden');
-	} else {
-		cartEmpty.classList.add('hidden');
-		rowProduct.classList.remove('hidden');
-		cartTotal.classList.remove('hidden');
-	}
-
-    // Limpiar HTML
-	rowProduct.innerHTML = '';
-
-    let total = 0;
-	let totalOfProducts = 0;
-
-
-	allProducts.forEach(product => {
-		const containerProduct = document.createElement('div');
-		containerProduct.classList.add('cart-product');
-
-		containerProduct.innerHTML = `
-            <div class="info-cart-product">
-                <span class="cantidad-producto-carrito">${product.quantity}</span>
-                <p class="titulo-producto-carrito">${product.title}</p>
-                <span class="precio-producto-carrito">${product.price}</span>
-            </div>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="icon-close"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                />
-            </svg>
-        `;
-
-		rowProduct.append(containerProduct);
-        total =
-			total + parseInt(product.quantity * product.price.slice(1));
-		totalOfProducts = totalOfProducts + product.quantity;
-	});
-    valorTotal.innerText = `$${total}`;
-	countProducts.innerText = totalOfProducts;
-};
-
+    // Enviar el formulario
+    document.getElementById('myForm').submit();
+}

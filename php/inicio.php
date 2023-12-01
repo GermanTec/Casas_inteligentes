@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/principal.css">
     <link rel="stylesheet" href="../css/nav-enca-pie.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/carrito.css">
 <!--FinPara pie de pagina-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"><!--Para el icono en bootstrap-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,7 +88,109 @@
         <li><a href="inicio.php">inicio</a></li>
         <li><a href="productos.php">Producto</a></li>
         <li><a href="conocenos.php">Conocenos</a></li>
-      </ul>
+
+        <?php
+      $contador=0;
+          if (isset($_SESSION['carrito'])) {
+            $carrito = $_SESSION['carrito'];
+            
+          foreach ($carrito as $producto) {
+
+            $contador+=$producto['cantidad'];
+
+          }
+          }
+          ?>
+      <div>
+      <div class="container-icon">
+				<div class="container-cart-icon">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="icon-cart"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+						/>
+            
+					</svg>
+					<div class="count-products">
+						<span id="contador-productos"><?php echo $contador ?></span>
+					</div>
+				</div>
+        <?php
+          
+              ?>
+				<div class="container-cart-products hidden-cart">
+          <?php
+          if (isset($_SESSION['carrito'])) {
+            $carrito = $_SESSION['carrito'];
+            $total=0;
+            
+          foreach ($carrito as $producto) {
+           
+            // Sumar al total
+            $total += $producto['precio_producto'];
+            
+          ?>
+					<div class="row-product hidden">
+						<div class="cart-product">
+              <!--Fragmento de datos del producto en el carrito-->
+              
+							<div class="info-cart-product">
+								<span class="cantidad-producto-carrito"><?php echo $producto['cantidad']; ?></span>
+								<p class="titulo-producto-carrito"><?php echo $producto['producto']; ?></p>
+								<span class="precio-producto-carrito">$<?php echo $producto['precio_producto']; ?></span>
+							</div>
+              <form action="Eliminar_carrito.php" method="post">
+              <input type="hidden" name="id_producto" value="<?php echo $producto['id_producto']; ?>">
+              <button type="submit" name="eliminar_producto">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="icon-close"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+              </button>
+              </form>
+              <!--------------------------------------------------->
+						</div>
+					</div>
+          <?php
+          }
+          ?>
+					<div class="cart-total hidden">
+						<h3>Total:</h3>
+						<span class="total-pagar">$<?php echo $total?></span>
+            <a href="pago.php"><button><i class="bi bi-cash-coin" style="font-size: 30px;"></i>Pagar</button></a>
+            <?php
+                }else{
+            ?>
+            <p class="cart-empty"><?php echo "El carrito está vacio.";?></p>
+              <?php
+            }
+              ?>
+					</div>
+          
+				</div>
+			</div>
+    </div>
+
+    </ul>
+    
     </nav>
     <!-- Fin Navegador--> 
     
@@ -465,6 +568,6 @@
      <!--SCRIPT BOOTSTRAP-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="../js/inicio.js"></script>
-
+    <script src="../js/carrito.js"></script>
   </body>
 </html>

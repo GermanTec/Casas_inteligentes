@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/productos.css">
     <link rel="stylesheet" href="../css/nav-enca-pie.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/carrito.css">
 <!--FinPara pie de pagina-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"><!--Para el icono en bootstrap-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +60,7 @@
               </li>
               <?php 
             } 
+            
           ?>
       </ul>
     </div>
@@ -78,7 +80,18 @@
       <li><a href="inicio.php">inicio</a></li>
       <li><a href="productos.php">Producto</a></li>
       <li><a href="conocenos.php">Conocenos</a></li>
+      <?php
+      $contador=0;
+          if (isset($_SESSION['carrito'])) {
+            $carrito = $_SESSION['carrito'];
+            
+          foreach ($carrito as $producto) {
 
+            $contador+=$producto['cantidad'];
+
+          }
+          }
+          ?>
       <div>
       <div class="container-icon">
 				<div class="container-cart-icon">
@@ -95,20 +108,39 @@
 							stroke-linejoin="round"
 							d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
 						/>
+            
 					</svg>
 					<div class="count-products">
-						<span id="contador-productos">0</span>
+						<span id="contador-productos"><?php echo $contador ?></span>
 					</div>
 				</div>
-
+        <?php
+          
+              ?>
 				<div class="container-cart-products hidden-cart">
+          <?php
+          if (isset($_SESSION['carrito'])) {
+            $carrito = $_SESSION['carrito'];
+            $total=0;
+            
+          foreach ($carrito as $producto) {
+           
+            // Sumar al total
+            $total += $producto['precio_producto'];
+            
+          ?>
 					<div class="row-product hidden">
 						<div class="cart-product">
+              <!--Fragmento de datos del producto en el carrito-->
+              
 							<div class="info-cart-product">
-								<span class="cantidad-producto-carrito"></span>
-								<p class="titulo-producto-carrito"></p>
-								<span class="precio-producto-carrito"></span>
+								<span class="cantidad-producto-carrito"><?php echo $producto['cantidad']; ?></span>
+								<p class="titulo-producto-carrito"><?php echo $producto['producto']; ?></p>
+								<span class="precio-producto-carrito">$<?php echo $producto['precio_producto']; ?></span>
 							</div>
+              <form action="Eliminar_carrito.php" method="post">
+              <input type="hidden" name="id_producto" value="<?php echo $producto['id_producto']; ?>">
+              <button type="submit" name="eliminar_producto">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
@@ -123,15 +155,27 @@
 									d="M6 18L18 6M6 6l12 12"
 								/>
 							</svg>
+              </button>
+              </form>
+              <!--------------------------------------------------->
 						</div>
 					</div>
-
+          <?php
+          }
+          ?>
 					<div class="cart-total hidden">
 						<h3>Total:</h3>
-						<span class="total-pagar"></span>
-            <a href="#"><button>Ir A Pagar</button></a>
+						<span class="total-pagar">$<?php echo $total?></span>
+            <a href="pago_sesion.php"><button><i class="bi bi-cash-coin" style="font-size: 30px;"></i>Pagar</button></a>
+            <?php
+                }else{
+            ?>
+            <p class="cart-empty"><?php echo "El carrito está vacio.";?></p>
+              <?php
+            }
+              ?>
 					</div>
-					<p class="cart-empty">El carrito está vacío</p>
+          
 				</div>
 			</div>
     </div>
@@ -164,24 +208,32 @@
         
       <ul>
       <div id="categoryProductos">
-        <li><a href="#product">Todo</a></li>
-        <li><a href="#product" onclick="extender()">Categorias</a></li>
+        <li><a href="javascript:void(0)" onclick="submitFormTodo(this)">Todo</a></li>
+        <li><a href="javascript:void(0)" onclick="extender()">Categorias</a></li>
         <div class="lista2" id="2">
-          <ul>
+          <ul id="Categorias">
+          <form id="myForm" action="search.php" method="post">
       <?php
         include('conexion.php');
         $sentencia="SELECT nombre as total FROM public.categoria";
         $resultado=pg_query($conexion,$sentencia);
+        $nombreCat="";
 
         while ($a = pg_fetch_assoc($resultado)) {
       ?>
-          <li><a href="#product"><?php echo $a['total']?></a></li>
+          
+          <li><a href="javascript:void(0)" onclick="submitForm(this)"><?php echo $a['total'] ?></a></li>
+          
       <?php
-        }      
+        }
+        if(isset($_GET['nombre3'])){
+          $nombreCat=$_GET['nombre3'];
+        }     
       ?>
+      </form>
         </ul>
         </div>
-        <li><a href="#product">Marcas</a></li>
+        <li><a href="javascript:void(0)">Marcas</a></li>
         <ul>
           <li><a href=""></a></li>
         </ul>
@@ -198,9 +250,10 @@
     <?php
         include('conexion.php');
 
-        $query = "SELECT productos.nombre, productos.imagen, productos.descripcion, precio,almacen.cantidadexistente as almacen, categoria.nombre as categoria FROM public.productos
+        $query = "SELECT productos.idproducto,productos.nombre, productos.imagen, productos.descripcion, precio,almacen.cantidadexistente as almacen, categoria.nombre as categoria FROM public.productos
         inner join public.categoria on public.categoria.idcategoria = public.productos.idcategoria
-        inner join public.almacen on public.almacen.idproducto = public.productos.idproducto";
+        inner join public.almacen on public.almacen.idproducto = public.productos.idproducto
+        where categoria.nombre Like '%$nombreCat'";
 
         $result = pg_query($conexion, $query);
 
@@ -210,7 +263,8 @@
             <div class="producto" onclick="cargar(this)" id="<?php echo $m['categoria'] ?>">
             <img src="<?php echo $m['imagen'] ?>" alt="" width="30" class="produto__img">
                 <div class="productDescription">
-                  <p class="id" id="id" style="display: none;"><?php echo $m['descripcion'] ?></p>
+                  <p class="id" id="id" style="display: none;"><?php echo $m['idproducto'] ?></p>
+                  <p class="descripcion_select" id="descripcion_select" style="display: none;"><?php echo $m['descripcion'] ?></p>
                     <h3 class="produto__title"><?php echo $m['nombre'] ?></h3>
                     <span class="produto__price">$<?php echo $m['precio'] ?></span>
                     <h2 style="display: none;"><?php echo $m['almacen']?></h2>
@@ -229,19 +283,29 @@
             &#x2715
         </div>
         <div class="info">
+        <form action="carrito.php" method="post">
+          <input type="text" id="id_producto" name="id_producto" style="display: none;">
              <img src="" alt="" id="img">
+             <input type="text" id="imagen" name="imagen" style="display: none;">
              <h2 id="modelo"></h2>
+             <input type="text" id="producto" name="producto" style="display: none;">
              <p id="descripcion"></p>
+             <input type="text" id="desc" name="desc" style="display: none;">
 
              <span class="precio" id="precio"></span>
+             <input type="text" id="precio_producto" name="precio_producto" style="display: none;">
+
              <div class="fila ">
                 <div class="size">
                     <label for="">Cantidad:
-                    <select name="existente" id="existente" ></select>
+                    <select name="existente" id="existente"></select>
                     </label>
+                    <input type="text" id="cantidad" name="cantidad" style="display: none;">
                 </div>
              </div>
+             
              <button class="btn-add-cart">Agregar carrito</button>
+             </form>
          </div>
      </div>
 
@@ -305,5 +369,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="../js/producto.js"></script>
 <script src="../js/inicio.js"></script>
+<script src="../js/carrito.js"></script>
 </body>
 </html>

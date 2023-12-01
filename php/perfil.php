@@ -15,7 +15,9 @@
 
     <!-- Enlace a Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
+    <script type="text/javascript" 
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
     <!-- Biblioteca Slick Carousel -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     
@@ -24,6 +26,7 @@
     <link rel="stylesheet" href="../css/nav-enca-pie.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/carrito.css">
 </head>
 <body>
     <!-- Encabezado -->
@@ -33,29 +36,31 @@
                 <li><a href="#">Contactos</a></li>
                 <?php
                 session_start(); 
-                if (isset($_SESSION['usuario']) == null || isset($_SESSION['usuario']) == '') {
+                    if (isset($_SESSION['usuario'])==null || isset($_SESSION['usuario'])=='') {
                 ?>
-                <li><a href="clientes.php">Login</a><i class="bi bi-person gap-3"></i></li>
+                    <li><a href="iniciarSesion.php">Login</a><i class="bi bi-person gap-3"></i></li>
+                    
                 <?php    
-                } else {
-                    $nombre = $_SESSION['usuario'];
-                ?>
-                <li style="width: 150px;">
-                    <a href="#" onclick="cortador()">
-                        <?php
-                        echo $nombre;
-                        ?>
+                    }else{
+                    $nombre=$_SESSION['usuario'];
+                    ?>
+                    <li style="width: 150px;"><a href="#" onclick="cortador()">
+                    <?php
+                    
+                    echo $nombre;
+                    ?>
                     </a><i class="bi bi-person gap-3"> </i>
                     <div class="perfil">    
-                        <ul id="extend">
+                            <ul id="extend">
                             <li><a href="perfil.php">Perfil</a></li>
-                            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <?php 
-                } 
+                            <li><a href="cerrarSesion.php">Cerrar sesion</a></li>
+                            </ul>
+                            </div>
+                    </li>
+                    <?php 
+                    } 
                 ?>
+                
             </ul>
         </div>
     </header>
@@ -71,7 +76,109 @@
             <li><a href="inicio.php">inicio</a></li>
             <li><a href="productos.php">Producto</a></li>
             <li><a href="conocenos.php">Conócenos</a></li>
-        </ul>
+
+            <?php
+      $contador=0;
+          if (isset($_SESSION['carrito'])) {
+            $carrito = $_SESSION['carrito'];
+            
+          foreach ($carrito as $producto) {
+
+            $contador+=$producto['cantidad'];
+
+          }
+          }
+          ?>
+      <div>
+      <div class="container-icon">
+				<div class="container-cart-icon">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="icon-cart"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+						/>
+            
+					</svg>
+					<div class="count-products">
+						<span id="contador-productos"><?php echo $contador ?></span>
+					</div>
+				</div>
+        <?php
+          
+              ?>
+				<div class="container-cart-products hidden-cart">
+          <?php
+          if (isset($_SESSION['carrito'])) {
+            $carrito = $_SESSION['carrito'];
+            $total=0;
+            
+          foreach ($carrito as $producto) {
+           
+            // Sumar al total
+            $total += $producto['precio_producto'];
+            
+          ?>
+					<div class="row-product hidden">
+						<div class="cart-product">
+              <!--Fragmento de datos del producto en el carrito-->
+              
+							<div class="info-cart-product">
+								<span class="cantidad-producto-carrito"><?php echo $producto['cantidad']; ?></span>
+								<p class="titulo-producto-carrito"><?php echo $producto['producto']; ?></p>
+								<span class="precio-producto-carrito">$<?php echo $producto['precio_producto']; ?></span>
+							</div>
+              <form action="Eliminar_carrito.php" method="post">
+              <input type="hidden" name="id_producto" value="<?php echo $producto['id_producto']; ?>">
+              <button type="submit" name="eliminar_producto">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="icon-close"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+              </button>
+              </form>
+              <!--------------------------------------------------->
+						</div>
+					</div>
+          <?php
+          }
+          ?>
+					<div class="cart-total hidden">
+						<h3>Total:</h3>
+						<span class="total-pagar">$<?php echo $total?></span>
+            <a href="pago.php"><button><i class="bi bi-cash-coin" style="font-size: 30px;"></i>Pagar</button></a>
+            <?php
+                }else{
+            ?>
+            <p class="cart-empty"><?php echo "El carrito está vacio.";?></p>
+              <?php
+            }
+              ?>
+					</div>
+          
+				</div>
+			</div>
+    </div>
+
+    </ul>
+    
     </nav>
 
     <!-- Contenido principal -->
@@ -305,48 +412,20 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <hr>
-                    <?php
-                    if (isset($_GET['errorReg'])) {
-                        ?>
-                        <p class="error">
-                            <?php
-                            echo $_GET['errorReg']
-                            ?>
-                        </p>
-                    <?php    
-                    } 
-                    ?>
-                    <?php
-                    if (isset($_GET['bienReg'])) {
-                        ?>
-                        <p class="bien">
-                            <?php
-                            echo $_GET['bienReg']
-                            ?>
-                        </p>
-                    <?php    
-                    } 
-                    ?>
-                    <hr>
                 </div>
             </div>
             <?php
             }
-            $info_financiera="SELECT idcuenta, idcliente, tipo 
-            FROM public.informacion_financiera WHERE idcliente=$idCliente";
-            $res_financiera=pg_query($conexion,$info_financiera);
-
-            if (pg_fetch_assoc($res_financiera)<1) {
-                echo "No tiene forma de pago";
-            }else{
             
             $si_tarjeta="SELECT * FROM public.informacion_financiera WHERE idcliente=$idCliente AND tipo='Tarjeta Debito'";
-            $res_si_tarjeta=pg_query($conexion,$info_financiera);
+            $res_si_tarjeta=pg_query($conexion,$si_tarjeta);
 
-            if (pg_num_rows($res_si_tarjeta)>0) {
                 $no_tarjetas=pg_num_rows($res_si_tarjeta);
+
+            $si_tarjetaC="SELECT * FROM public.informacion_financiera WHERE idcliente=$idCliente AND tipo='Tarjeta Credito'";
+            $res_si_tarjetaC=pg_query($conexion,$si_tarjetaC);
+
+                $no_tarjetasC=pg_num_rows($res_si_tarjetaC);
             ?>
             
             <div id="informacion-financiera" class="contenido" style="display: none;">
@@ -356,16 +435,16 @@
                 <br>
                 <h4>Mis tarjetas</h4>
                 <h4>Debito</h4>
-                <!-- Contenedor de tarjetas Credito/Deito-->
+                <!-- Contenedor de tarjetas Deito-->
                 <div id="miContenedor" style="width: 1000px; height: 360px; overflow-x: auto;">
                     <!-- Primera fila -->
-                    <div id="renglon" class="renglon" style="display:flex; width:<?php echo $no_tarjetas*300+900?>px;">
+                    <div id="renglon" class="renglon" style="display:flex; width:<?php echo ($no_tarjetas+1)*500?>px;">
                         <!-- Tarjetas existentes -->
                         <?php
                 $tarjeta_electronica="SELECT idtarjeta, numero_tarjeta, nombre_propietario, vencimiento_mes, vencimiento_año, informacion_financiera.idcuenta
                 FROM public.tarjeta_electronica 
                 inner join public.informacion_financiera on public.tarjeta_electronica.idcuenta=public.informacion_financiera.idcuenta
-                where informacion_financiera.idcliente=$idCliente";
+                where informacion_financiera.idcliente=$idCliente and informacion_financiera.tipo='Tarjeta Debito'";
                 $res_tarjeta=pg_query($conexion,$tarjeta_electronica);
                 while ($if = pg_fetch_assoc($res_tarjeta)) {
                     ?>
@@ -390,15 +469,27 @@
                                         </div>
                                     </div>
                             </div>
+                            <button onclick="btnAbrirModal2(this)" class="button_modal">
+                                    <i class="bi bi-x" style="font-size: 40px;"></i>
+                                    <label style="display: none;" id="no_cuenta" for="no_cuenta"><?php echo $if['idtarjeta'] ?></label>
+                                </button>  
+                                
                         </div>
                         <?php
                     }
-
-                    $insertar_tarjeta="INSERT INTO public.informacion_financiera(idcuenta, idcliente, tipo)VALUES (?, ?, ?);"
+                    
                         ?>
-                    <!-- Crear tarjeta -->
+                        <dialog id="modal2" >
+                            <form action="../php/CRUD_INFOFinanciera/EliminarTarjeta.php" method="post" style=" position:absolute; top:10px; left:30px;">
+                                <input type="text" style="display: none;" class="form-control" name="label_no" id="label_no" value=""> 
+                                <label for="" style="font-size: 30px;">Seguro de eliminar tarjeta</label><br><br><br>
+                                <button class="btn btn-primary">Eliminar</button>
+                            </form>
+                                <button id="btnCerrarModal2" class="btn btn-primary" style="position: absolute; top:98px; left:320px;">Cancelar</button>
+                            </dialog>
+                    <!-- Crear tarjeta Debito-->
                         <div class="tarjeta-blanca">
-                            <div style="position:relative;     z-index: 1;">
+                            <div style="position:relative;     z-index: 0;">
                                 <button class="agregar" onclick="agregarT()">
                                     <i class="bi bi-plus-circle-dotted agrandar"></i>
                                 </button>
@@ -433,21 +524,116 @@
                                         </form>
                                     
                                 </div>
-                                <div class="delante"></div>
+                                <div class="delante"><i class="bi bi-plus-circle-dotted agrandar"></i></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <h4>Credito</h4>
-                <br>
-                <h4>Otras formas de pago</h4>
+                <!-- Contenedor de tarjetas Credito-->
+                <div id="miContenedor" style="width: 1000px; height: 360px; overflow-x: auto;">
+                    <!-- Primera fila -->
+                    <div id="renglon" class="renglon" style="display:flex; width:<?php echo ($no_tarjetasC+1)*500?>px;">
+                        <!-- Tarjetas existentes -->
+                        <?php
+                $tarjeta_electronicaC="SELECT idtarjeta, numero_tarjeta, nombre_propietario, vencimiento_mes, vencimiento_año, informacion_financiera.idcuenta
+                FROM public.tarjeta_electronica 
+                inner join public.informacion_financiera on public.tarjeta_electronica.idcuenta=public.informacion_financiera.idcuenta
+                where informacion_financiera.idcliente=$idCliente and informacion_financiera.tipo='Tarjeta Credito'";
+                $res_tarjetaC=pg_query($conexion,$tarjeta_electronicaC);
+                while ($ifc = pg_fetch_assoc($res_tarjetaC)) {
+                    ?>
+                        <div class="tarjeta" style="background-color: rgb(181, 45, 0);">
+                            <div class="delante">
+                                <div class="logo-tarjeta">
+                                    <img src="../img/mastercard.png" alt="" >
+                                </div>
+                                <img src="../img/chip-tarjeta.png" alt="" class="chip">
+                                        <p class="nombre">Numero de tarjeta</p>
+                                        <p class="label"><?php $grupo=str_split($ifc['numero_tarjeta'],4); foreach ($grupo as $grupo){echo $grupo." ";} {
+                                            # code...
+                                        } ?></p>
+                                    <div class="flex">
+                                        <div class="nombre">
+                                            <p class="nombre">Nombre del dueño</p>
+                                            <p class="label"><?php echo $ifc['nombre_propietario'] ?></p>
+                                        </div>
+                                        <div class="expiracion">
+                                            <p class="nombre">Expiracion</p>
+                                            <p><span class="label"><?php echo $ifc['vencimiento_mes'] ?></span> / <span class="label"><?php echo $ifc['vencimiento_año'] ?></span></p>
+                                        </div>
+                                    </div>
+                            </div>
+                            <button onclick="btnAbrirModal2(this)" class="button_modal">
+                                    <i class="bi bi-x" style="font-size: 40px;"></i>
+                                    <label style="display: none;" id="no_cuenta" for="no_cuenta"><?php echo $ifc['idtarjeta'] ?></label>
+                                </button>  
+                                
+                        </div>
+                        <?php
+                    }
+                    
+                        ?>
+                        <dialog id="modal2" >
+                            <form action="../php/CRUD_INFOFinanciera/EliminarTarjeta.php" method="post" style=" position:absolute; top:10px; left:30px;">
+                                <input type="text" style="display: none;" class="form-control" name="label_no" id="label_no" value=""> 
+                                <label for="" style="font-size: 30px;">Seguro de eliminar tarjeta</label><br><br><br>
+                                <button class="btn btn-primary">Eliminar</button>
+                            </form>
+                                <button id="btnCerrarModal2" class="btn btn-primary" style="position: absolute; top:98px; left:320px;">Cancelar</button>
+                            </dialog>
+                <!-- Crear tarjeta Credito-->
+                <div class="tarjeta-blanca">
+                            <div style="position:relative;     z-index: 0;">
+                                <button class="agregarC" onclick="agregarTC()">
+                                    <i class="bi bi-plus-circle-dotted agrandar"></i>
+                                </button>
+                            </div>
+                            <div class="new-tarjetaC">
+                                <div class="trasera">
+                                    <div class="logo-tarjeta">
+                                        <img src="../img/mastercard.png" alt="" >
+                                    </div>
+                                        <img src="../img/chip-tarjeta.png" alt="" class="chip">
+                                        <form action="../php/CRUD_INFOFinanciera/RegistrarTarjetaC.php" method="post">
+                                            <label for="no-tarjeta" class="form-label">Numero de tarjeta</label>
+                                            <input type="text" class="form-control" name="no-tarjeta" id="no-tarjeta"> 
+                                            <div class="flex">
+                                                <div class="nombre">
+                                                    <label for="propietario" class="form-label">Nombre del propietario</label>
+                                                    <input type="text" class="form-control" name="propietario" id="propietario">
+                                                </div>
+                                                <div class="expiracion">
+                                                    <label for="expiracion" class="form-label">Expiracion</label>
+                                                    <div style="display: flex;">
+                                                        <label for="vencimiento_mes" class="form-label">Mes</label>
+                                                        <input type="number" class="form-control" name="vencimiento_mes" id="vencimiento_mes" style="width: 60px;">
+                                                        <label for="vencimiento_año" class="form-label">Año</label>
+                                                        <input type="number" class="form-control" name="vencimiento_año" id="vencimiento_año" style="width: 60px;">
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <button class="registrar-tarjeta" onclick="">
+                                        <i class="bi bi-plus-circle-dotted" style="font-size: 40px;"></i>
+                                    </button>     
+                                        </form>
+                                    
+                                </div>
+                                <div class="delante"><i class="bi bi-plus-circle-dotted agrandar"></i></div>
+                            </div>
+                        </div>
+                
                 </div>
+                
             </div>
-
+                
+            <br>
+                <h4>Otras formas de pago</h4>
+            </div>
+            </div>
             <?php
              
-            }
-           }
             $info_personal="SELECT idcliente, nombre, apellidos, fecha_naciemiento, genero, foto, curp
             FROM public.informacion_personal WHERE idcliente=$idCliente";
             $res_personal=pg_query($conexion,$info_personal);
@@ -472,7 +658,7 @@
                                                                     echo $ip['nombre'];}
                                                           ?>
                                     </p>
-                                    <a href="#" onclick="toggleElementos('MostrarNombre','EditNombre')" class="btn-sm btn-danger text-danger">Cambiar</a>
+                                    <a href="#informacion-personal" onclick="toggleElementos('MostrarNombre','EditNombre')" class="btn-sm btn-danger text-danger">Cambiar</a>
                                 </div>
                                 <form action="../php/CRUD_INFOPersonal/ModificarNombre.php" method="post">
                                 <div class="card-body" id="EditNombre" style="display: none;">
@@ -546,7 +732,7 @@
                                 </div>
                                 <form action="../php/CRUD_INFOPersonal/ModificarGenero.php" method="post">
                                 <div class="card-body" id="EditGenero" style="display: none;">
-                                        <label for="genero"><h5>Genero</h5></label>
+                                        <label for="genero"><h5>Genero</h5></label><br>
                                         <label for="masculino"><input type="radio" name="genero" id="masculino" value="Masculino">Masculino</label>
                                         <label for="femenino"><input type="radio" name="genero" id="femenino" value="Femenino">Femenino</label>
                                         <label for="otro"><input type="radio" name="genero" id="otro" value="Otro">Otro</label><br>
@@ -597,6 +783,32 @@
         </main>
     </div>
     
+    <!--div>
+        <hr>
+            </*?php
+            if (isset($_GET['errorReg'])) {
+                ?>
+                <p class="error">
+                    </*?php
+                    echo $_GET['errorReg']
+                    ?>
+                </p>
+            </*?php    
+            } 
+            ?>
+            </*?php
+            if (isset($_GET['bienReg'])) {
+                ?>
+                <p class="bien">
+                    </*?php
+                    echo $_GET['bienReg']
+                    ?>
+                </p>
+            </*?php    
+            } 
+            ?>
+        <hr>
+    </div-->   
     
     <!-- Pie de página -->
     <footer class="footer-distributed">
@@ -645,6 +857,7 @@
     <script src="../js/inicio.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="../js/perfil-interaccion.js"></script>
+    <script src="../js/carrito.js"></script>
 
 </body>
 </html>

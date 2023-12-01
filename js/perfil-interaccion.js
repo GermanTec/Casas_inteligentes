@@ -59,6 +59,15 @@ function agregarT(){
         boton.classList.add('visible');
 }
 
+function agregarTC(){
+    var contenedorInterior = document.querySelector('.new-tarjetaC');
+        
+        contenedorInterior.classList.add('active')
+
+        var boton = document.querySelector('.agregarC');  
+        boton.classList.add('visible');
+}
+
 function toggleElementos(elementoOcultarId, elementoMostrarId) {
     // Evita que el enlace realice la acción predeterminada (navegar a una nueva página)
     event.preventDefault();
@@ -74,7 +83,10 @@ function toggleElementos(elementoOcultarId, elementoMostrarId) {
 
   const btnAbrirModal=document.getElementById("btnAbrirModal")
   const btnCerrarModal=document.getElementById("btnCerrarModal")
+  const btnCerrarModal2=document.getElementById("btnCerrarModal2")
   const modal=document.querySelector('#modal');
+  const modal2=document.querySelector('#modal2');
+  
 
   btnAbrirModal.addEventListener("click",()=>{
     console.log("hse")
@@ -85,3 +97,26 @@ function toggleElementos(elementoOcultarId, elementoMostrarId) {
   btnCerrarModal.addEventListener("click",()=>{
     modal.close();
   })
+
+
+  btnCerrarModal2.addEventListener("click",()=>{
+    modal2.close();
+  })
+
+  let tarjeta_selecionada = document.getElementById("label_no");
+
+  function btnAbrirModal2(producto){
+
+    console.log(tarjeta_selecionada);
+
+
+    modal2.showModal();
+    
+    tarjeta_selecionada.value = producto.getElementsByTagName("label")[0].innerHTML;
+}
+
+function mostrarVentana(){
+
+    content[key].style.display = "block";
+}
+

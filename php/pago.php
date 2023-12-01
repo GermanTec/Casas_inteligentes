@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomeTech</title>
 
-    <!-- Fuentes de Google -->
+    <!--letra-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tektur:wght@400;500;600;700;800;900&family=Work+Sans:ital,wght@1,500&display=swap" rel="stylesheet">
-    
+    <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!--Fin letra-->    
     <!-- Hoja de estilos para iconos de Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
@@ -20,9 +22,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     
     <!-- Hoja de estilos personalizada -->
-    <link rel="stylesheet" href="../css/principal.css">
     <link rel="stylesheet" href="../css/nav-enca-pie.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/pago.css">
 
     <!-- Estilos para Stripe -->
     <style>
@@ -35,6 +37,9 @@
         }
     </style>
 </head>
+
+<div class="spacer"></div> <!-- Agrega un div separador -->
+
 <body>
     <!-- Encabezado -->
     <header class="header">
@@ -43,28 +48,29 @@
                 <li><a href="#">Contactos</a></li>
                 <?php
                 session_start(); 
-                if (isset($_SESSION['usuario']) == null || isset($_SESSION['usuario']) == '') {
+                    if (isset($_SESSION['usuario'])==null || isset($_SESSION['usuario'])=='') {
                 ?>
-                <li><a href="clientes.php">Login</a><i class="bi bi-person gap-3"></i></li>
+                    <li><a href="iniciarSesion.php">Login</a><i class="bi bi-person gap-3"></i></li>
+                    
                 <?php    
-                } else {
-                    $nombre = $_SESSION['usuario'];
-                ?>
-                <li style="width: 150px;">
-                    <a href="#" onclick="cortador()">
-                        <?php
-                        echo $nombre;
-                        ?>
+                    }else{
+                    $nombre=$_SESSION['usuario'];
+                    ?>
+                    <li style="width: 150px;"><a href="#" onclick="cortador()">
+                    <?php
+                    
+                    echo $nombre;
+                    ?>
                     </a><i class="bi bi-person gap-3"> </i>
                     <div class="perfil">    
-                        <ul id="extend">
+                            <ul id="extend">
                             <li><a href="perfil.php">Perfil</a></li>
-                            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <?php 
-                } 
+                            <li><a href="cerrarSesion.php">Cerrar sesion</a></li>
+                            </ul>
+                            </div>
+                    </li>
+                    <?php 
+                    } 
                 ?>
             </ul>
         </div>
@@ -84,75 +90,61 @@
         </ul>
     </nav>
 
-
-
-    <?php
-// Definir un array de productos de ejemplo con imágenes
-$productos = array(
-    array('nombre' => 'Producto 1', 'precio' => 10, 'imagen' => 'producto1.jpg'),
-    array('nombre' => 'Producto 2', 'precio' => 20, 'imagen' => 'producto2.jpg'),
-    // ... puedes agregar más productos según sea necesario
-);
-
-// Inicializar la variable $totalCompra
-$totalCompra = 0;
-
-// Calcular el total de la compra
-foreach ($productos as $producto) {
-    $totalCompra += $producto['precio'];
-}
-?>
-
-<main>
-    <div class="container">
-        <!-- Nuevo formulario de pago con Stripe -->
-        <form action="charge.php" method="post" id="payment-form">
-            <div class="row">
-                <div class="col-6">
-                    <h2>Detalle Pago</h2>
-                    <!-- Agregar detalles de productos dinámicamente desde PHP -->
-                    <!-- Ejemplo PHP: -->
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Precio</th>
-                                <th>Imagen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                // Verificar si la variable $productos está definida y no es nula
-                                if (isset($productos) && is_array($productos)) {
-                                    foreach ($productos as $producto) {
-                                        echo '<tr>';
-                                        echo '<td>' . $producto['nombre'] . '</td>';
-                                        echo '<td>$' . $producto['precio'] . '</td>';
-                                        echo '<td><img src="' . $producto['imagen'] . '" alt="' . $producto['nombre'] . '"></td>';
-                                        echo '</tr>';
+    <main>
+        <div class="container">
+            <!-- Nuevo formulario de pago con Stripe -->
+                <div class="row">
+                    <div class="col-6">
+                        <h2>Detalle Pago</h2>
+                        <!-- Agregar detalles de productos dinámicamente desde PHP -->
+                        <!-- Ejemplo PHP: -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    if (isset($_SESSION['carrito'])) {
+                                        $carrito = $_SESSION['carrito'];
+                                        $total=0;
+                                        
+                                    foreach ($carrito as $producto) {
+                                        $total += $producto['precio_producto'];
+                                        ?>
+                                        <tr>
+                                            <td><img src="<?php echo $producto['imagen'];?>" alt="<?php echo $producto['producto'];?>" width="100px"></td>
+                                            <td><?php echo $producto['producto']?></td>
+                                            <td><?php echo $producto['cantidad'];?></td>
+                                            <td><?php echo $producto['precio_producto'];?></td>
+                                        </tr>
+                                            <?php
+                                        }
+                                    } else {
+                                        echo '<tr><td colspan="3">No hay productos disponibles.</td></tr>';
                                     }
-                                } else {
-                                    echo '<tr><td colspan="3">No hay productos disponibles.</td></tr>';
-                                }
-                            ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2"><strong>Total:</strong></td>
-                                <td>$<?php echo $totalCompra; ?></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"><strong>Total:</strong></td>
+                                    <td>$<?php echo $total; ?></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="col-6">
+                        <!-- Puedes agregar más campos si es necesario -->
+                        <div id="paypal-button-container"></div>
+                        <p id="result-message"></p>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <!-- Puedes agregar más campos si es necesario -->
-                    <div id="paypal-button-container"></div>
-                    <p id="result-message"></p>
-                </div>
-            </div>
-        </form>
-    </div>
-</main>
+        </div>
+    </main>
 
 
 

@@ -5,8 +5,7 @@
     port= 5432"   
     );
     session_start(); 
-    if (isset($_POST['propietario']) && isset($_POST['vencimiento_año']) && isset($_POST['vencimiento_mes']) 
-    && isset($_POST['no-tarjeta']) && isset($_SESSION['usuario']) != null || isset($_SESSION['usuario']) != '') {
+    if (isset($_POST['label_no']) && isset($_SESSION['usuario']) != null || isset($_SESSION['usuario']) != '') {
         function validar($data){
             $data=trim($data);
             $data=stripslashes($data);
@@ -14,34 +13,29 @@
             return $data;
         }
         $nombre = $_SESSION['usuario'];
-        $propietario=validar($_POST['propietario']);
-        $vencimiento_año=validar($_POST['vencimiento_año']);
-        $vencimiento_mes=validar($_POST['vencimiento_mes']);
-        $no_tarjeta=validar($_POST['no-tarjeta']);
+        $id_tarjeta=validar($_POST['label_no']);
     
-        if(empty($nombre)){
-            
+        if(empty($id_tarjeta)){
+            echo ($id_tarjeta);
         }else{
         //Sentencia
-        $SQL="INSERT INTO public.informacion_financiera(idcliente, tipo)VALUES ((SELECT idcliente FROM public.cliente WHERE usuario='$nombre'), 'Tarjeta Debito');";
-        $result=pg_query($conexion,$SQL);
+        $buscar_cuenta="SELECT idcuenta FROM public.tarjeta_electronica WHERE idtarjeta=$id_tarjeta;";
+        $res2=pg_query($conexion,$buscar_cuenta);
+        $id =pg_fetch_result($res2,0,'idcuenta');
 
-        $tarjeta="SELECT MAX(idcuenta) FROM public.informacion_financiera";
+        $tarjeta="DELETE FROM public.tarjeta_electronica WHERE idtarjeta=$id_tarjeta;";
         $res=pg_query($conexion,$tarjeta);
-        $id =pg_fetch_result($res,0);
 
-        $SQL2="INSERT INTO public.tarjeta_electronica(numero_tarjeta, nombre_propietario, vencimiento_mes, vencimiento_año, idcuenta)
-            VALUES ($no_tarjeta,'$propietario', $vencimiento_mes, $vencimiento_año, $id);";
-        $result2=pg_query($conexion,$SQL2);
+        $cuenta="DELETE FROM public.informacion_financiera WHERE idcuenta=$id;";
+        $res3=pg_query($conexion,$cuenta);
 
-        if ($result2===1 && $result===1) {
+        if ($res===1 && $res3===1) {
             echo "fracas";
-            header("Location: ../perfil.php?errorReg=Registro echo incorrectamente");
+            header("Location: ../perfil.php?errorReg=Elimino incorrectamente");
         }else{
             echo "exito";
             header("Location: ../perfil.php?");
         }
-
     }
 }
 

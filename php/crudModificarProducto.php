@@ -17,6 +17,7 @@
         $categoria=validar($_POST['categoria']);
         $precio=validar($_POST['precio']);
         $stock=validar($_POST['stock']);
+        $imagen=validar($_POST['imagen']);
     
         if (empty($id)) {
         header("Location: admin.php?errorMP=El ID es requerido");
@@ -24,7 +25,7 @@
         }else{
         //Sentencia
         $SQL="UPDATE public.productos
-        SET nombre='$productName', descripcion='$descripcion', precio=$precio, idcategoria=1
+        SET nombre='$productName', descripcion='$descripcion', precio=$precio, idcategoria='$categoria', imagen='$imagen'
         WHERE idproducto=$id";        
         $result=pg_query($conexion,$SQL);
 

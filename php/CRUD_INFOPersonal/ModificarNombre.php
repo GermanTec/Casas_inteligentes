@@ -27,11 +27,9 @@
         $result=pg_query($conexion,$SQL);
 
         if ($result===1) {
-            echo "fracas";
             header("Location: ../perfil.php?errorReg=Modificado incorrectamente");
         }else{
-            echo "exito";
-            header("Location: ../perfil.php?");
+            echo '<script>window.location.href = "../perfil.php#informacion-personal";</script>';
         }
 
     }
