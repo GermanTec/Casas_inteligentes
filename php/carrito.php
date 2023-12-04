@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_prod = intval($id_prod);
     $cantidad = intval($cantidad);
     $precio = floatval($precio);
+
+    
     // Crear el producto como un arreglo asociativo
 
     
@@ -31,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
             if (!$productoExistente) {
+                $precio=$precio*$cantidad;
+
                 // El producto no existe en el carrito, agregar nuevo producto
                 $nuevoProducto = [
                     'producto' => $producto_array,
@@ -44,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
     }else{
             echo "Producto nuvo";
+            $precio=$precio*$cantidad;
             $nuevoProducto = [
                 'producto' => $producto_array,
                 'precio_producto' => $precio,

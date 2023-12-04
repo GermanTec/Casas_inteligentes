@@ -17,13 +17,19 @@ let id_producto=document.getElementById("id_producto");
 
 
 function cargar(producto){
+    var almacen=producto.getElementsByTagName("h2")[0].innerHTML;
+    if (almacen==0) {
+        
+    }else{
     quitarBordes();
     mostrador.style.width  = "75%";
     seleccion.style.width = "25%";
     seleccion.style.opacity = "1";
     producto.style.border = "2px solid #0071b2";
 
-   var almacen=producto.getElementsByTagName("h2")[0].innerHTML;
+   
+   // Limpiar opciones existentes
+cantidadesSeleccionado.innerHTML = '';
 
     imgSeleccionada.src = producto.getElementsByTagName("img")[0].src;
     imagen.value = producto.getElementsByTagName("img")[0].src;
@@ -42,14 +48,22 @@ function cargar(producto){
     precio_producto.value = cadenaSinPrimerCaracter;
 
     id_producto.value = producto.getElementsByClassName("id")[0].innerHTML;
-
-    for (var i = 1; i <= almacen; i++) {
-        var option = document.createElement("option"); // Crea un elemento option
-        option.innerHTML = i+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;("+almacen+" disponibles)"; // Establece el texto de la opción
-        option.value=i
-        option.title="";
-        cantidadesSeleccionado.add(option); // Agrega la opción al select
+    if (almacen==0) {
+            var option = document.createElement("option"); // Crea un elemento option
+            option.innerHTML = "Producto Agotado"; // Establece el texto de la opción
+            option.title="";
+            cantidadesSeleccionado.add(option); // Agrega la opción al select
+    } else {
+        for (var i = 1; i <= almacen; i++) {
+            var option = document.createElement("option"); // Crea un elemento option
+            option.innerHTML = i+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;("+almacen+" disponibles)"; // Establece el texto de la opción
+            option.value=i
+            option.title="";
+            cantidadesSeleccionado.add(option); // Agrega la opción al select
+        }
     }
+}
+    
 }
 function handleSelectChange() {
     // Obtener el valor seleccionado

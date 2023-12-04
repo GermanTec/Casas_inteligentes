@@ -80,6 +80,7 @@
       <li><a href="inicio.php">inicio</a></li>
       <li><a href="productos.php">Producto</a></li>
       <li><a href="conocenos.php">Conocenos</a></li>
+      <input type="search" aria-label="Buscar" placeholder="Buscar en HomeTech" style="padding-left: 1.5rem; padding-right: 4rem;">
       <?php
       $contador=0;
           if (isset($_SESSION['carrito'])) {
@@ -261,6 +262,16 @@
             ?>
 
             <div class="producto" onclick="cargar(this)" id="<?php echo $m['categoria'] ?>">
+            <?php 
+            if ($m['almacen']==0) {
+            ?>
+            <div class="icono-superior">
+              <p>Producto agotado</p>
+            <i class="bi bi-cart-x"></i>
+            </div>
+            <?php 
+            }
+            ?>
             <img src="<?php echo $m['imagen'] ?>" alt="" width="30" class="produto__img">
                 <div class="productDescription">
                   <p class="id" id="id" style="display: none;"><?php echo $m['idproducto'] ?></p>

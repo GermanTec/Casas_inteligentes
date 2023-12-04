@@ -12,8 +12,8 @@
   
   .container-icon{
     position: relative;
-    top: 10px;
-    left: 460px;
+    top: 18px;
+    left: 40px;
   }
   
   .count-products{
@@ -44,7 +44,7 @@
   .container-cart-products{
       position: absolute;
       top: 50px;
-      right: 0;
+      right: -50px;
   
       background-color: #fff;
       width: 400px;

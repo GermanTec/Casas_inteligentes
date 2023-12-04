@@ -186,6 +186,14 @@
     }
   }
 
+  nav ul input{
+    margin-left: 80px;
+    margin-top: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    height: 50px;
+  }
+
   .language-dropdown .dropdown-toggle::after {
     content: none;
   }

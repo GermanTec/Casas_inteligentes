@@ -103,6 +103,8 @@
   color: #0071b2;
 }
 
+
+
 /*..........Categoria--------*/
 .section1 .lista2{
   align-items: end;
@@ -150,6 +152,8 @@
     cursor: pointer;
     border-radius: 5px;
     transition: .3s;
+    position: relative;
+
 }
 
 .mostrar .fila .producto:hover{
@@ -181,6 +185,28 @@
 .seleccion img{
   width: 100%;
   height: 400px;
+}
+
+.icono-superior {
+  position: absolute;
+  top: 0;
+  left: 142px;
+  background-color: transparent; /* Puedes ajustar el fondo según tus necesidades */
+  padding: 5px; /* Puedes ajustar el padding según tus necesidades */
+  z-index: 0;
+  display: flex;
+   /* Asegura que el icono esté sobre la imagen */
+}
+
+.icono-superior p{
+  font-size: 10px;
+}
+
+/* Agrega estilos al icono, por ejemplo, utilizando Font Awesome */
+.icono-superior i {
+  font-size: 20px;
+  color: #000000; /* Puedes ajustar el color según tus necesidades */
+  font-size: 30px;
 }
 
 /*Codigo para cuadro del producto seleccionado*/

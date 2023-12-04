@@ -76,6 +76,7 @@
             <li><a href="inicio.php">inicio</a></li>
             <li><a href="productos.php">Producto</a></li>
             <li><a href="conocenos.php">Conócenos</a></li>
+            <input type="search" aria-label="Buscar" placeholder="Buscar en HomeTech" style="padding-left: 1.5rem; padding-right: 4rem;">
 
             <?php
       $contador=0;
